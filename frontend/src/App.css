@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: #F8F9FA;
+  color: #1E293B;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-main-layout { display: flex; flex-direction: column; min-height: 100vh; }
+.main-content { flex: 1; }
+.view-container { max-width: 1040px; margin: 0 auto; padding: 24px 20px 60px; }
+
+/* =========================================
+   1. NAVBAR OFICIAL
+   ========================================= */
+.navbar-oficial {
+  background: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.nav-container-oficial {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nav-logo-oficial { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.navbar-logo-img { height: 40px; width: auto; object-fit: contain; }
+.logo-texto { font-size: 18px; font-weight: 900; color: #0B3B24; }
+.nav-links-oficial { display: flex; align-items: center; gap: 8px; }
+
+.nav-btn-oficial {
+  background: transparent;
+  border: none;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 7px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+.nav-btn-oficial:hover { color: #0B3B24; background: #F1F5F9; }
+.nav-btn-oficial.active-tab {
+  background: #0B3B24 !important;
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+}
+
+.btn-ia-pill {
+  background: #16A34A;
+  color: white;
+  border: none;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 7px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.btn-ia-pill.active-ia { background: #0B3B24; }
+.user-nav-badge { font-size: 11px; background: #E2E8F0; padding: 4px 8px; border-radius: 12px; font-weight: 700; color: #0B3B24; }
+.text-danger { color: #DC2626 !important; }
+
+/* =========================================
+   2. BANNERS Y ENCABEZADOS DE MÓDULOS
+   ========================================= */
+.module-header-banner {
+  background: #0B3B24;
+  color: #FFFFFF;
+  padding: 36px 30px;
+  border-radius: 14px;
+  margin-bottom: 24px;
+}
+.module-badge-tag { color: #F97316; font-weight: 800; font-size: 11px; letter-spacing: 1.5px; display: block; margin-bottom: 8px; }
+.module-header-banner h1 { margin: 0 0 8px; font-size: 32px; font-weight: 900; }
+.module-header-banner p { margin: 0; color: #CBD5E1; font-size: 14px; line-height: 1.5; }
+.user-session-badge { display: inline-block; background: rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 4px; font-size: 11.5px; color: #A7F3D0; margin-top: 14px; }
+
+/* =========================================
+   3. PÁGINA PRINCIPAL (HOME)
+   ========================================= */
+.home-hero {
+  background: #0B3B24;
+  color: #FFFFFF;
+  padding: 44px 30px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.hero-tag { display: inline-block; background: #D9531E; color: white; padding: 3px 10px; border-radius: 10px; font-size: 10.5px; font-weight: 700; margin-bottom: 12px; }
+.hero-title { font-size: 36px; font-weight: 900; margin: 0 0 10px; }
+.text-highlight { color: #F97316; }
+.hero-subtitle { font-size: 14px; color: #CBD5E1; max-width: 650px; margin: 0 auto 20px; line-height: 1.5; }
+.video-box-center { max-width: 580px; margin: 0 auto 24px; border-radius: 12px; overflow: hidden; border: 2px solid rgba(249, 115, 22, 0.4); background: #000; }
+.video-player-afro { width: 100%; max-height: 320px; display: block; }
+.video-footer-tag { background: #062416; color: #E2E8F0; padding: 6px 12px; font-size: 11.5px; }
+
+.hero-search-box input { width: 90%; max-width: 480px; padding: 12px 18px; border-radius: 25px; border: none; font-size: 13px; outline: none; margin-bottom: 18px; }
+.hero-cta-group { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+.btn-hero-ia { background: #16A34A; color: white; border: none; padding: 9px 20px; border-radius: 20px; font-weight: 700; font-size: 12.5px; cursor: pointer; }
+.btn-hero-explore { background: rgba(255,255,255,0.08); border: 1px solid #94A3B8; color: white; padding: 9px 20px; border-radius: 20px; font-weight: 600; font-size: 12.5px; cursor: pointer; }
+.hero-metrics-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.metric-pill { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); padding: 5px 12px; border-radius: 16px; font-size: 11px; color: #E2E8F0; }
+
+.share-card-afro { background: #0B3B24; color: white; padding: 36px 24px; border-radius: 16px; text-align: center; margin-top: 30px; }
+.share-tag { font-size: 10px; letter-spacing: 1.5px; color: #F59E0B; font-weight: 800; display: block; margin-bottom: 6px; }
+.share-card-afro h2 { margin: 0 0 8px; font-size: 24px; font-weight: 900; }
+.share-card-afro p { color: #CBD5E1; font-size: 13.5px; margin: 0 auto 20px; max-width: 600px; }
+.share-btns-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.btn-share-clean { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 25px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; }
+.btn-share-main { background: rgba(255,255,255,0.12); color: white; border: 1px solid rgba(255,255,255,0.25); }
+.btn-share-copy { background: white; color: #0F172A; }
+.btn-share-wpp { background: #25D366; color: white; }
+
+/* =========================================
+   4. FILTROS Y TARJETAS GENERALES
+   ========================================= */
+.pill-group { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter-pill { background: #FFFFFF; border: 1px solid #E2E8F0; padding: 6px 14px; border-radius: 20px; font-size: 12px; color: #475569; cursor: pointer; font-weight: 600; }
+.filter-pill.active { background: #0B3B24; color: #FFFFFF; border-color: #0B3B24; font-weight: 700; }
+.mb-20 { margin-bottom: 20px; }
+
+.cards-grid-afro { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+.card-afro { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+.card-top-img { width: 100%; height: 170px; object-fit: cover; }
+.card-inner-body { padding: 18px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
+.card-badge { align-self: flex-start; background: #F1F5F9; color: #475569; font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 4px; margin-bottom: 8px; }
+.card-inner-body h3 { margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #0F172A; }
+.card-desc { font-size: 12.5px; color: #64748B; line-height: 1.5; margin-bottom: 12px; }
+.card-meta { font-size: 11.5px; color: #475569; display: flex; flex-direction: column; gap: 4px; border-top: 1px solid #F1F5F9; padding-top: 10px; margin-bottom: 12px; }
+.link-action-map { background: transparent; border: 1px solid #16A34A; color: #16A34A; font-weight: 700; font-size: 12px; padding: 7px; border-radius: 6px; cursor: pointer; text-align: center; }
+
+/* =========================================
+   5. MÓDULO 2: MEMORIA Y PATRIMONIO
+   ========================================= */
+.memoria-layout { display: grid; grid-template-columns: 2.2fr 1fr; gap: 20px; }
+.saber-item-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; padding: 18px; margin-bottom: 12px; }
+.saber-header { display: flex; justify-content: space-between; cursor: pointer; }
+.badge-saber { font-size: 10px; background: #FEF3C7; color: #D97706; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+.saber-detail-img { width: 100%; height: 160px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+.portador-tag { font-size: 12px; color: #16A34A; font-weight: 700; margin-top: 8px; }
+.callout-card-sabedor { background: #F0FDF4; border: 1px solid #BBF7D0; padding: 20px; border-radius: 10px; height: fit-content; }
+.btn-sabedor-cta { width: 100%; background: #16A34A; color: white; border: none; padding: 8px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+
+/* =========================================
+   6. MÓDULO 3: AGENDA CULTURAL PROFESIONAL
+   ========================================= */
+.agenda-grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+.agenda-card-pro { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.03); display: flex; flex-direction: column; transition: transform 0.2s; }
+.agenda-card-pro:hover { transform: translateY(-3px); }
+.agenda-card-media { position: relative; height: 160px; width: 100%; }
+.agenda-card-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.agenda-date-floating { position: absolute; bottom: 12px; left: 14px; background: #16A34A; color: white; padding: 6px 12px; border-radius: 8px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+.date-number { font-size: 20px; font-weight: 900; line-height: 1; display: block; }
+.date-month { font-size: 10px; font-weight: 800; }
+.agenda-card-body { padding: 18px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
+.agenda-top-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.badge-event-type { background: #FEF3C7; color: #D97706; font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 4px; }
+.agenda-organizer-badge { font-size: 10.5px; font-weight: 700; color: #64748B; }
+.agenda-event-title { margin: 0 0 6px; font-size: 16px; font-weight: 800; color: #0F172A; }
+.agenda-event-desc { font-size: 12.5px; color: #64748B; line-height: 1.5; margin-bottom: 14px; }
+.agenda-details-row { background: #F8FAFC; border-radius: 8px; padding: 10px 12px; font-size: 11.5px; color: #334155; display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
+.btn-event-map-action { background: transparent; border: 1px solid #16A34A; color: #16A34A; font-weight: 700; font-size: 12px; padding: 8px; border-radius: 6px; cursor: pointer; }
+.btn-event-map-action:hover { background: #16A34A; color: white; }
+
+/* =========================================
+   7. MÓDULO 4: TALENTOS Y EMPRENDIMIENTOS
+   ========================================= */
+.emprendedor-action-bar { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; padding: 14px 20px; margin-bottom: 20px; }
+.emp-authenticated-box { display: flex; justify-content: space-between; align-items: center; }
+.emp-guest-box { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: #475569; }
+.btn-emp-new { background: #16A34A; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+.btn-guest-login { background: #D9531E; color: white; border: none; padding: 7px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 12px; }
+.emp-form-upload { background: #FFFFFF; border: 2px solid #16A34A; border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+.emp-grid-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.emp-grid-form .full-col { grid-column: span 2; }
+.emp-grid-form label { display: block; font-size: 11.5px; font-weight: 700; margin-bottom: 4px; color: #475569; }
+.emp-grid-form input, .emp-grid-form select, .emp-grid-form textarea { width: 100%; padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 12.5px; outline: none; }
+.btn-emp-submit { background: #16A34A; color: white; border: none; width: 100%; padding: 10px; border-radius: 6px; font-weight: 800; cursor: pointer; }
+.card-badge-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.price-badge-green { background: #DCFCE7; color: #15803D; font-size: 11.5px; font-weight: 800; padding: 2px 8px; border-radius: 4px; }
+.contact-actions-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+.btn-wpp-direct { background: #25D366; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer; }
+.btn-email-direct { background: #0B3B24; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer; }
+.titular-text { font-size: 11.5px; color: #64748B; margin-bottom: 6px; font-weight: 600; }
+
+/* =========================================
+   8. MÓDULO 5: RUTAS CON MAPA INTEGRADO
+   ========================================= */
+.rutas-showcase-list { display: flex; flex-direction: column; gap: 32px; }
+.ruta-master-box { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 26px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+.ruta-box-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #F1F5F9; padding-bottom: 18px; margin-bottom: 20px; gap: 16px; flex-wrap: wrap; }
+.ruta-tag-badge { background: #F97316; color: white; font-size: 10.5px; font-weight: 800; padding: 3px 10px; border-radius: 4px; display: inline-block; margin-bottom: 6px; }
+.ruta-title-meta h2 { margin: 0 0 6px; font-size: 22px; font-weight: 900; color: #0F172A; }
+.ruta-title-meta p { margin: 0; color: #64748B; font-size: 13.5px; max-width: 620px; }
+.ruta-pills-stats { display: flex; gap: 8px; }
+.stat-badge { background: #F1F5F9; color: #334155; font-size: 11.5px; font-weight: 700; padding: 6px 12px; border-radius: 20px; }
+.ruta-split-layout { display: grid; grid-template-columns: 1.15fr 1fr; gap: 20px; }
+.panel-subtitle { margin: 0 0 14px; font-size: 13px; font-weight: 800; color: #0B3B24; }
+.timeline-items-flow { display: flex; flex-direction: column; gap: 12px; }
+.timeline-stop-card { display: flex; gap: 12px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 12px 14px; }
+.stop-step-circle { background: #0B3B24; color: white; width: 26px; height: 26px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: 900; flex-shrink: 0; }
+.stop-text-body { flex: 1; }
+.stop-title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.stop-title-row strong { font-size: 13.5px; color: #0F172A; }
+.stop-duration-tag { background: #E2E8F0; color: #475569; font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 4px; }
+.stop-text-body p { margin: 0; font-size: 12px; color: #64748B; line-height: 1.4; }
+
+.ruta-map-panel { background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+.map-panel-header { background: #0B3B24; color: white; padding: 10px 14px; font-size: 12px; display: flex; justify-content: space-between; align-items: center; }
+.map-panel-header small { color: #A7F3D0; font-size: 11px; }
+.map-frame-box { height: 240px; width: 100%; background: #e2e8f0; }
+.route-interactive-iframe { width: 100%; height: 100%; border: none; }
+.map-panel-footer { padding: 10px 14px; background: #FFFFFF; border-top: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #64748B; }
+.btn-open-full-map { background: #16A34A; color: white; border: none; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; cursor: pointer; }
+
+/* =========================================
+   9. MÓDULO 6: EXPERIENCIAS
+   ========================================= */
+.exp-top-row { display: flex; justify-content: space-between; align-items: flex-start; }
+.exp-price-badge { background: #FFEDD5; color: #C2410C; font-size: 12px; font-weight: 900; padding: 3px 8px; border-radius: 4px; }
+.btn-reservar-guia { width: 100%; background: #16A34A; color: white; border: none; padding: 8px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; }
+
+/* =========================================
+   10. MÓDULO 7: ASISTENTE IA
+   ========================================= */
+.ia-prompt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.prompt-card-btn { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 8px; padding: 12px 16px; font-size: 12px; color: #334155; text-align: left; cursor: pointer; font-weight: 500; }
+.prompt-card-btn:hover { border-color: #16A34A; color: #16A34A; }
+.ia-input-container { display: flex; gap: 8px; margin-bottom: 24px; }
+.ia-input-container input { flex: 1; padding: 12px 18px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 13px; outline: none; }
+.btn-send-ia { background: #16A34A; color: white; border: none; padding: 0 22px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; }
+.ia-itinerary-response { background: #FFFFFF; border: 1px solid #BBF7D0; border-radius: 12px; padding: 24px; }
+.ia-response-badge { font-size: 10px; font-weight: 900; color: #16A34A; letter-spacing: 1px; margin-bottom: 12px; }
+.ia-response-text { font-size: 13px; color: #334155; line-height: 1.7; }
+
+/* =========================================
+   11. MÓDULO 8: DASHBOARD ADMINISTRATIVO
+   ========================================= */
+.dashboard-stats-section { background: white; border: 1px solid #E2E8F0; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+.dashboard-title-row h3 { margin: 0 0 16px; font-size: 16px; font-weight: 800; }
+.kpi-main-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
+.kpi-box { padding: 18px 20px; border-radius: 8px; border: 1px solid #E2E8F0; }
+.kpi-box.kpi-green { background: #16A34A; color: white; border-color: #16A34A; }
+.kpi-box.kpi-white { background: white; }
+.kpi-value { font-size: 34px; font-weight: 900; line-height: 1; margin-bottom: 4px; }
+.kpi-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; }
+.kpi-breakdown-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.mini-stat-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; display: flex; justify-content: space-between; }
+
+.dashboard-crud-section { background: white; border: 1px solid #E2E8F0; border-radius: 12px; padding: 24px; }
+.admin-nav-tabs { display: flex; gap: 8px; border-bottom: 1px solid #E2E8F0; padding-bottom: 10px; margin-bottom: 18px; }
+.crud-tab { background: transparent; border: none; font-size: 13px; font-weight: 600; color: #64748B; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+.crud-tab.active { background: #0B3B24; color: white; font-weight: 800; }
+.crud-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.btn-add-entity { background: #16A34A; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; }
+.crud-create-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 18px; margin-bottom: 18px; }
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.form-field-group input, .form-field-group textarea { width: 100%; padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 6px; font-size: 12px; }
+.form-actions-row { display: flex; gap: 8px; }
+.btn-submit-publish { background: #16A34A; color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+.btn-cancel-form { background: transparent; border: 1px solid #CBD5E1; color: #64748B; padding: 8px 14px; border-radius: 6px; cursor: pointer; }
+.crud-list-wrapper { display: flex; flex-direction: column; border-top: 1px solid #F1F5F9; }
+.crud-row-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-bottom: 1px solid #F1F5F9; font-size: 13px; font-weight: 600; }
+.btn-trash-action { background: transparent; border: none; cursor: pointer; font-size: 16px; }
+
+.dashboard-footer-actions-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid #E2E8F0;
+}
+.btn-footer-center { padding: 10px 24px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; }
+.btn-primary-gray { background: #0B3B24; color: white; }
+.btn-danger-red { background: #DC2626; color: white; }
+.access-denied-card { background: white; border: 1px solid #E2E8F0; border-radius: 16px; padding: 48px 30px; text-align: center; max-width: 500px; margin: 40px auto; }
+.denied-icon { font-size: 48px; margin-bottom: 12px; }
+.btn-login-redirect { background: #0B3B24; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+
+/* =========================================
+   12. REGISTRO DE ACTORES Y AUTH
+   ========================================= */
+.login-view-wrapper { display: flex; justify-content: center; padding: 30px 16px; }
+.actor-auth-container { background: #FFFFFF; border: 1px solid #E2E8F0; width: 100%; max-width: 680px; border-radius: 16px; padding: 36px 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+.auth-header-logo { text-align: center; margin-bottom: 20px; }
+.auth-logo-image { height: 60px; width: auto; margin-bottom: 6px; }
+.auth-header-logo h2 { margin: 0 0 6px; font-size: 22px; font-weight: 900; color: #0B3B24; }
+.auth-header-desc { font-size: 13px; color: #64748B; margin: 0; }
+.auth-mode-switch { display: flex; background: #F1F5F9; padding: 4px; border-radius: 10px; margin-bottom: 24px; }
+.mode-tab { flex: 1; padding: 10px; border: none; background: transparent; font-size: 13px; font-weight: 700; color: #64748B; border-radius: 8px; cursor: pointer; }
+.mode-tab.active { background: #FFFFFF; color: #0B3B24; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.actor-selector-section { margin-bottom: 24px; }
+.section-label { font-size: 10.5px; font-weight: 800; letter-spacing: 1px; color: #D9531E; display: block; margin-bottom: 10px; }
+.actor-cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.actor-card { background: #F8FAFC; border: 2px solid #E2E8F0; padding: 14px; border-radius: 10px; cursor: pointer; text-align: left; }
+.actor-card.selected { border-color: #16A34A; background: #F0FDF4; }
+.actor-icon { font-size: 24px; margin-bottom: 4px; }
+.actor-card strong { display: block; font-size: 13px; color: #0F172A; }
+.actor-card small { font-size: 11px; color: #64748B; display: block; }
+.auth-unified-form { display: flex; flex-direction: column; gap: 14px; }
+.form-row-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-group-afro { display: flex; flex-direction: column; gap: 4px; text-align: left; }
+.form-group-afro label { font-size: 12px; font-weight: 700; color: #475569; }
+.form-group-afro input, .form-group-afro select, .form-group-afro textarea { padding: 10px 12px; border: 1px solid #CBD5E1; border-radius: 8px; font-size: 13px; outline: none; }
+.extra-role-fields { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.extra-role-badge { font-size: 10.5px; font-weight: 800; color: #B45309; }
+.btn-auth-main-submit { background: #16A34A; color: #FFFFFF; border: none; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 800; cursor: pointer; }
+.quick-roles-access { margin-top: 24px; border-top: 1px solid #F1F5F9; padding-top: 18px; text-align: center; }
+.quick-access-title { font-size: 11.5px; color: #94A3B8; font-weight: 600; display: block; margin-bottom: 10px; }
+.quick-btn-group { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.btn-quick-tag { border: 1px solid #E2E8F0; background: #F8FAFC; padding: 6px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 700; cursor: pointer; }
+
+/* =========================================
+   13. MODALES Y FOOTER
+   ========================================= */
+.modal-map-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 9999; padding: 20px; }
+.modal-map-card { background: white; width: 100%; max-width: 650px; border-radius: 14px; overflow: hidden; }
+.modal-map-header { background: #0B3B24; color: white; padding: 16px 20px; display: flex; justify-content: space-between; align-items: flex-start; }
+.btn-close-map { background: transparent; border: none; color: white; font-size: 20px; cursor: pointer; }
+.map-iframe-wrapper { height: 350px; width: 100%; }
+.map-iframe { width: 100%; height: 100%; border: none; }
+.modal-map-footer { padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; background: #F8FAFC; border-top: 1px solid #E2E8F0; font-size: 12px; }
+.btn-open-ext-map { background: #16A34A; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+
+.footer-afro { background: #0A2E20; color: #CBD5E1; padding: 40px 0 20px; border-top: 4px solid #F97316; margin-top: 50px; }
+.footer-container { max-width: 1040px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1.5fr 1.5fr; gap: 28px; }
+.footer-logo { display: flex; align-items: center; gap: 10px; color: white; font-size: 16px; margin-bottom: 8px; }
+.footer-logo-img { height: 42px; width: auto; background: white; border-radius: 4px; padding: 2px; }
+.footer-desc { font-size: 11.5px; line-height: 1.6; color: #94A3B8; }
+.footer-col h4 { color: #F59E0B; font-size: 11px; letter-spacing: 1px; margin: 0 0 10px; font-weight: 800; }
+.footer-col ul { list-style: none; padding: 0; margin: 0; font-size: 12px; }
+.footer-col li { margin-bottom: 5px; cursor: pointer; color: #CBD5E1; }
+.footer-col li:hover { color: white; text-decoration: underline; }
+.footer-col p { font-size: 11.5px; line-height: 1.6; color: #94A3B8; }
+.footer-loc { display: block; margin-top: 10px; color: #6EE7B7; font-size: 11px; }
+
+@media (max-width: 768px) {
+  .kpi-main-grid, .kpi-breakdown-grid, .emp-grid-form, .form-grid-2, .actor-cards-grid, .form-row-dual, .ruta-split-layout, .agenda-grid-cards { grid-template-columns: 1fr; }
+  .footer-container, .memoria-layout { grid-template-columns: 1fr; }
+}

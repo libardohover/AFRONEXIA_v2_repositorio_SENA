@@ -1,0 +1,97 @@
+.nexia-wrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+}
+.nexia-btn-open {
+  background: linear-gradient(135deg, #d9531e, #1b4d3e);
+  color: white;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.nexia-chatbox {
+  width: 350px;
+  height: 480px;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid #d9531e;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.nexia-chat-header {
+  background: #1b4d3e;
+  color: white;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.nexia-chat-header small {
+  display: block;
+  font-size: 11px;
+  color: #a7f3d0;
+}
+.nexia-chat-header button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+.nexia-chat-body {
+  flex: 1;
+  padding: 14px;
+  overflow-y: auto;
+  background: #faf8f5;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.bubble.user {
+  align-self: flex-end;
+  background: #d9531e;
+  color: white;
+}
+.bubble.bot {
+  align-self: flex-start;
+  background: #e8f5e9;
+  color: #1b4d3e;
+  border: 1px solid #c8e6c9;
+}
+.nexia-chat-footer {
+  display: flex;
+  padding: 10px;
+  background: white;
+  border-top: 1px solid #eee;
+}
+.nexia-chat-footer input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+}
+.nexia-chat-footer button {
+  background: #1b4d3e;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-left: 8px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
