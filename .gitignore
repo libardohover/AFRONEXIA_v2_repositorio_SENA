@@ -1,2 +1,15 @@
+# Dependencias y compilados
 node_modules/
+frontend/dist/
+
+# Variables de entorno (contienen contraseñas y claves)
 .env
+!.env.example
+
+# Registros y archivos del sistema
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
