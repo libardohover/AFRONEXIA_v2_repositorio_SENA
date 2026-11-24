@@ -73,7 +73,7 @@ export default function LoginView({ onLoginSuccess, setActiveTab }) {
   const redirigirSegunRol = (rol) => {
     if (rol === 'administrador') setActiveTab('admin');
     else if (rol === 'emprendedor') setActiveTab('emprendimientos');
-    else if (rol === 'gestor_cultural') setActiveTab('memoria');
+    else if (rol === 'gestor_cultural') setActiveTab('admin');
     else setActiveTab('explorador');
   };
 

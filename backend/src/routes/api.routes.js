@@ -26,8 +26,9 @@ router.post('/contenidos', requiereAuth, alias('saberes'), h(cat.crear));
 
 // Participación
 router.post('/reservas', h(part.crearReserva));
-router.get('/reservas', requiereRol('administrador', 'emprendedor', 'gestor_cultural'), h(part.listarReservas));
-router.patch('/reservas/:id', requiereRol('administrador', 'emprendedor', 'gestor_cultural'), h(part.actualizarReserva));
+// Las reservas tienen datos personales de los visitantes: solo administrador y gestor cultural.
+router.get('/reservas', requiereRol('administrador', 'gestor_cultural'), h(part.listarReservas));
+router.patch('/reservas/:id', requiereRol('administrador', 'gestor_cultural'), h(part.actualizarReserva));
 router.get('/valoraciones', h(part.listarValoraciones));
 router.post('/valoraciones', requiereAuth, h(part.crearValoracion));
 router.get('/favoritos', requiereAuth, h(part.listarFavoritos));

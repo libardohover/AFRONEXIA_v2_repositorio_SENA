@@ -28,7 +28,7 @@ export default function Navbar({ activeTab, setActiveTab, user, onLogout }) {
 
           {user ? (
             <>
-              {user.rol === 'administrador' && (
+              {['administrador', 'gestor_cultural'].includes(user.rol) && (
                 <button className={activeTab === 'admin' ? 'nav-btn-oficial active-tab' : 'nav-btn-oficial'} onClick={() => setActiveTab('admin')}>Panel</button>
               )}
               <span className="user-nav-badge">👤 {user.nombre} ({user.rol})</span>

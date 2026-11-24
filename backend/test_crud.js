@@ -63,6 +63,13 @@ async function prueba(nombre, fn, esperado) {
   const ev = await prueba('Admin crea evento', () => req('POST', '/catalogo/eventos', { titulo: 'Evento de prueba', tipo: 'Taller Formativo', lugar: 'Casa de la Cultura', fecha_iso: '2030-05-01T10:00:00' }, tokAdmin), 201);
   if (ev) await prueba('Admin elimina evento', () => req('DELETE', `/catalogo/eventos/${ev.id}`, null, tokAdmin), 200);
 
+  const gestor = await prueba('Login gestor cultural demo', () => req('POST', '/auth/login', { email: 'emiro@cultura.org', password: 'Afronexia2026*' }), 200);
+  const tokGestor = gestor && gestor.token;
+  const saber = await prueba('Gestor publica un saber', () => req('POST', '/catalogo/saberes', { titulo: 'Saber de prueba', categoria: 'Oralidad', texto: 'Relato de prueba' }, tokGestor), 201);
+  if (saber) await prueba('Gestor elimina el saber', () => req('DELETE', `/catalogo/saberes/${saber.id}`, null, tokGestor), 200);
+  await prueba('Gestor consulta reservas', () => req('GET', '/reservas', null, tokGestor), 200);
+  await prueba('Emprendedor no ve reservas ajenas', () => req('GET', '/reservas', null, tokEmp), 403);
+
   const fecha = new Date(Date.now() + 20 * 864e5).toISOString().slice(0, 10);
   await prueba('Reserva de experiencia', () => req('POST', '/reservas', { experiencia_id: 2, nombre_contacto: 'Turista', telefono_contacto: '3000000000', fecha_deseada: fecha, personas: 1 }), 201);
   await prueba('Reserva sin datos → 400', () => req('POST', '/reservas', { experiencia_id: 2 }), 400);

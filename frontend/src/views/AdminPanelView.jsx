@@ -98,8 +98,8 @@ function Resumen({ stats }) {
   );
 }
 
-function Contenido({ setAviso }) {
-  const [entidad, setEntidad] = useState('lugares');
+function Contenido({ setAviso, entidades }) {
+  const [entidad, setEntidad] = useState(entidades[0]);
   const [lista, setLista] = useState([]);
   const [form, setForm] = useState(null);
   const conf = ENTIDADES[entidad];
@@ -140,7 +140,7 @@ function Contenido({ setAviso }) {
   return (
     <>
       <div className="admin-nav-tabs">
-        {Object.keys(ENTIDADES).map((t) => (
+        {entidades.map((t) => (
           <button key={t} className={entidad === t ? 'crud-tab active' : 'crud-tab'} onClick={() => setEntidad(t)}>{t.charAt(0).toUpperCase() + t.slice(1)}</button>
         ))}
       </div>
@@ -249,20 +249,27 @@ export default function AdminPanelView({ user, setActiveTab, onLogout }) {
   const [stats, setStats] = useState(null);
   const [aviso, setAviso] = useState(null);
   const esAdmin = user && user.rol === 'administrador';
+  const esGestor = user && user.rol === 'gestor_cultural';
+  // El gestor cultural publica contenido cultural y gestiona reservas; el resto es exclusivo del administrador.
+  const secciones = esAdmin
+    ? [['resumen', '📊 Resumen'], ['contenido', '🗂️ Contenido'], ['reservas', '🛶 Reservas'], ['usuarios', '👥 Usuarios']]
+    : [['contenido', '🗂️ Contenido'], ['reservas', '🛶 Reservas']];
+  const entidades = esAdmin ? Object.keys(ENTIDADES) : ['lugares', 'eventos', 'saberes', 'rutas', 'experiencias'];
+  const seccionActiva = secciones.some(([k]) => k === seccion) ? seccion : secciones[0][0];
 
   useEffect(() => {
     if (!esAdmin || seccion !== 'resumen') return;
     api('/admin/stats').then(setStats).catch((e) => setAviso({ tipo: 'error', texto: e.message }));
   }, [esAdmin, seccion]);
 
-  if (!esAdmin) {
+  if (!esAdmin && !esGestor) {
     return (
       <div className="view-container">
         <div className="access-denied-card">
           <div className="denied-icon">🔒</div>
           <h2>Acceso Restringido</h2>
-          <p>Este panel es de uso exclusivo para el <strong>Administrador del Sistema</strong>.</p>
-          <p className="denied-sub">Inicia sesión con una cuenta de administrador.</p>
+          <p>Este panel es para el <strong>Administrador</strong> y los <strong>Gestores culturales</strong>.</p>
+          <p className="denied-sub">Inicia sesión con una cuenta de administrador o de gestor cultural.</p>
           <button className="btn-login-redirect" onClick={() => setActiveTab('login')}>Ir al formulario de ingreso</button>
         </div>
       </div>
@@ -273,23 +280,23 @@ export default function AdminPanelView({ user, setActiveTab, onLogout }) {
     <div className="view-container">
       <div className="module-header-banner">
         <span className="module-badge-tag">MÓDULO 8</span>
-        <h1>Panel administrativo</h1>
-        <p>Gestiona el contenido del ecosistema, las reservas y los usuarios, y consulta los indicadores del sistema y del agente NEXIA.</p>
-        <small className="user-session-badge">Sesión de Administrador: <strong>{user.email}</strong></small>
+        <h1>{esAdmin ? 'Panel administrativo' : 'Panel del gestor cultural'}</h1>
+        <p>{esAdmin ? 'Gestiona el contenido del ecosistema, las reservas y los usuarios, y consulta los indicadores del sistema y del agente NEXIA.' : 'Publica lugares, eventos, saberes, rutas y experiencias, y gestiona las reservas de las experiencias.'}</p>
+        <small className="user-session-badge">Sesión de {esAdmin ? 'Administrador' : 'Gestor cultural'}: <strong>{user.email}</strong></small>
       </div>
 
       <div className="admin-secciones">
-        {[['resumen', '📊 Resumen'], ['contenido', '🗂️ Contenido'], ['reservas', '🛶 Reservas'], ['usuarios', '👥 Usuarios']].map(([k, l]) => (
-          <button key={k} className={seccion === k ? 'filter-pill active' : 'filter-pill'} onClick={() => { setSeccion(k); setAviso(null); }}>{l}</button>
+        {secciones.map(([k, l]) => (
+          <button key={k} className={seccionActiva === k ? 'filter-pill active' : 'filter-pill'} onClick={() => { setSeccion(k); setAviso(null); }}>{l}</button>
         ))}
       </div>
       {aviso && <div className={aviso.tipo === 'ok' ? 'alert-success-box' : 'alert-error-box'}>{aviso.texto}</div>}
 
       <section className="dashboard-stats-section">
-        {seccion === 'resumen' && <Resumen stats={stats} />}
-        {seccion === 'contenido' && <Contenido setAviso={setAviso} />}
-        {seccion === 'reservas' && <Reservas setAviso={setAviso} />}
-        {seccion === 'usuarios' && <Usuarios setAviso={setAviso} yo={user} />}
+        {seccionActiva === 'resumen' && <Resumen stats={stats} />}
+        {seccionActiva === 'contenido' && <Contenido setAviso={setAviso} entidades={entidades} />}
+        {seccionActiva === 'reservas' && <Reservas setAviso={setAviso} />}
+        {seccionActiva === 'usuarios' && <Usuarios setAviso={setAviso} yo={user} />}
       </section>
 
       <div className="dashboard-footer-actions-centered">
