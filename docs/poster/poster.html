@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Póster AFRONEXIA – X Simposio Nacional</title>
+<style>
+@font-face { font-family: 'Titulo'; font-weight: 600; src: url(fonts/montserrat-latin-600-normal.woff2); }
+@font-face { font-family: 'Titulo'; font-weight: 700; src: url(fonts/montserrat-latin-700-normal.woff2); }
+@font-face { font-family: 'Titulo'; font-weight: 800; src: url(fonts/montserrat-latin-800-normal.woff2); }
+@font-face { font-family: 'Texto'; font-weight: 400; src: url(fonts/carlito-latin-400-normal.woff2); }
+@font-face { font-family: 'Texto'; font-weight: 400; font-style: italic; src: url(fonts/carlito-latin-400-italic.woff2); }
+@font-face { font-family: 'Texto'; font-weight: 700; src: url(fonts/carlito-latin-700-normal.woff2); }
+@font-face { font-family: 'Texto'; font-weight: 700; font-style: italic; src: url(fonts/carlito-latin-700-italic.woff2); }
+@font-face { font-family: 'APA'; font-weight: 400; src: url(fonts/tinos-latin-400-normal.woff2); }
+@font-face { font-family: 'APA'; font-weight: 400; font-style: italic; src: url(fonts/tinos-latin-400-italic.woff2); }
+@font-face { font-family: 'APA'; font-weight: 700; src: url(fonts/tinos-latin-700-normal.woff2); }
+
+/* Paleta del simposio: azul institucional, verde, lima, verde claro y blanco */
+:root { --azul: #20244D; --verde: #4A8A2C; --lima: #83BF5E; --claro: #EEF5E8; --blanco: #FFFFFF; --texto: #2A2E4A; }
+@page { size: 900mm 1200mm; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { width: 900mm; height: 1200mm; position: relative; overflow: hidden; background: var(--blanco); font-family: 'Texto', sans-serif; color: var(--texto); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+/* Encabezado */
+.header { position: absolute; left: 0; top: 0; width: 900mm; height: 206mm; background: var(--azul); overflow: hidden; }
+.header .hex-bg { position: absolute; right: -40mm; top: 0; height: 206mm; opacity: 0.9; }
+.header .logo-x { position: absolute; left: 30mm; top: 28mm; width: 128mm; }
+.eje { position: absolute; left: 183mm; top: 23mm; height: 21mm; padding: 0 22mm; border-radius: 11mm; background: var(--lima); color: var(--azul); font-family: 'Texto'; font-weight: 700; font-size: 26pt; letter-spacing: 0.22em; display: flex; align-items: center; }
+.titulo { position: absolute; left: 183mm; top: 50mm; width: 690mm; margin: 0; color: var(--blanco); font-family: 'Titulo'; font-weight: 700; font-size: 82pt; line-height: 1.08; letter-spacing: -0.005em; }
+.autores { position: absolute; left: 183mm; top: 146mm; width: 690mm; color: var(--blanco); font-weight: 700; font-size: 30pt; margin: 0; }
+.afil { position: absolute; left: 183mm; top: 161mm; width: 690mm; color: var(--lima); font-size: 26pt; margin: 0; line-height: 1.3; }
+
+/* Columnas */
+.cols { position: absolute; left: 30mm; top: 228mm; width: 840mm; height: 900mm; display: flex; gap: 21mm; }
+.col { width: 266mm; display: flex; flex-direction: column; }
+.sec { display: flex; align-items: center; gap: 9mm; margin: 0 0 9mm; }
+.num { width: 30mm; height: 34mm; background: var(--verde); clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); color: var(--blanco); font-family: 'Titulo'; font-weight: 700; font-size: 26pt; display: flex; align-items: center; justify-content: center; flex: none; }
+.sec h2 { margin: 0; font-family: 'Titulo'; font-weight: 700; font-size: 46pt; color: var(--azul); }
+p { margin: 0; font-size: 28pt; line-height: 1.32; }
+.just { text-align: justify; hyphens: auto; }
+.gap { height: 16mm; flex: none; }
+.cite { white-space: nowrap; }
+
+/* Objetivo */
+.objetivo { background: var(--azul); color: var(--blanco); border-radius: 4mm; padding: 16mm 15mm; }
+.objetivo p { font-family: 'Titulo'; font-weight: 700; font-size: 30pt; line-height: 1.3; }
+.objetivo .verbo { color: var(--lima); }
+
+/* Metodología */
+.paso { display: flex; gap: 12mm; align-items: center; margin-bottom: 9mm; }
+.hexi { width: 46mm; height: 52mm; flex: none; background: var(--verde); clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); display: flex; align-items: center; justify-content: center; }
+.hexi.azul { background: var(--azul); }
+.hexi svg { width: 22mm; height: 22mm; }
+.paso h3 { margin: 0 0 1.5mm; font-family: 'Titulo'; font-weight: 700; font-size: 28pt; color: var(--azul); }
+.paso p { font-size: 24pt; line-height: 1.25; color: #4B4F68; }
+
+/* Caja de módulos (columna 1) */
+.caja-mod { margin-top: auto; background: var(--claro); border-radius: 4mm; padding: 12mm 13mm 13mm; }
+.caja-mod h3 { margin: 0 0 8mm; font-family: 'Titulo'; font-weight: 700; font-size: 27pt; color: var(--azul); }
+.mods { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+.mod { background: var(--blanco); border-radius: 3mm; padding: 6mm 7mm; display: flex; gap: 5mm; align-items: center; }
+.mod b { font-family: 'Titulo'; font-size: 26pt; color: var(--verde); }
+.mod span { font-size: 24pt; font-weight: 700; color: var(--azul); }
+.mod.ia { background: var(--azul); }
+.mod.ia b { color: var(--lima); }
+.mod.ia span { color: var(--blanco); }
+
+/* Resultados */
+.kpis { display: flex; gap: 8mm; margin-bottom: 14mm; }
+.kpi { flex: 1; background: var(--claro); border-radius: 4mm; padding: 11mm 5mm 9mm; text-align: center; }
+.kpi.azul { background: var(--azul); }
+.kpi .v { font-family: 'Titulo'; font-weight: 700; font-size: 40pt; color: var(--verde); line-height: 1.1; }
+.kpi.azul .v { color: var(--lima); }
+.kpi .l { font-size: 21pt; line-height: 1.2; margin-top: 5mm; color: var(--texto); }
+.kpi.azul .l { color: var(--blanco); }
+.fig-n { font-family: 'APA'; font-weight: 700; font-size: 24pt; color: var(--verde); margin: 0; }
+.fig-t { font-family: 'APA'; font-style: italic; font-size: 24pt; margin: 1mm 0 5mm; color: var(--texto); line-height: 1.25; }
+.nota { font-family: 'APA'; font-size: 20pt; color: #55597A; margin-top: 3mm; line-height: 1.25; }
+.nota i { font-style: italic; }
+.captura { width: 266mm; height: 190mm; object-fit: cover; object-position: top center; border: 1.2mm solid var(--claro); border-radius: 3mm; display: block; }
+table { width: 100%; border-collapse: collapse; }
+th { font-size: 21pt; text-align: left; color: var(--azul); padding: 3mm 2mm; border-top: 0.8mm solid var(--verde); border-bottom: 0.5mm solid var(--verde); }
+td { font-size: 21pt; padding: 3.4mm 2mm; border-bottom: 0.3mm solid #D7E6CC; vertical-align: top; line-height: 1.2; }
+td.r { font-weight: 700; color: var(--verde); white-space: nowrap; }
+
+/* Columna 3 */
+.callout { background: var(--lima); border-radius: 4mm; padding: 11mm 12mm; display: flex; gap: 10mm; align-items: center; margin: 2mm 0 16mm; }
+.callout .hexi { width: 38mm; height: 43mm; background: var(--azul); }
+.callout .hexi img { width: 17mm; }
+.callout p { font-family: 'Titulo'; font-weight: 700; font-size: 29pt; color: var(--azul); line-height: 1.25; }
+.concl { display: flex; gap: 9mm; align-items: flex-start; margin-bottom: 9mm; }
+.concl .n { font-family: 'Titulo'; font-weight: 800; font-size: 54pt; color: var(--verde); line-height: 0.9; width: 16mm; flex: none; }
+.concl p { font-weight: 700; font-size: 27pt; color: var(--azul); line-height: 1.25; }
+.refs p { font-family: 'APA'; font-size: 20.5pt; line-height: 1.3; padding-left: 9mm; text-indent: -9mm; margin-bottom: 3mm; color: var(--texto); word-break: break-word; }
+.contacto { margin-top: auto; background: var(--azul); border-radius: 4mm; padding: 11mm 12mm; color: var(--blanco); display: flex; gap: 8mm; }
+.contacto h3 { margin: 0 0 7mm; font-family: 'Titulo'; font-weight: 700; font-size: 30pt; color: var(--lima); }
+.c-item { display: flex; gap: 6mm; align-items: center; margin-bottom: 5mm; }
+.c-item .hexi { width: 24mm; height: 27mm; background: var(--lima); }
+.c-item .hexi img { width: 11mm; }
+.c-item p { font-size: 21pt; line-height: 1.2; color: var(--blanco); }
+.qr { width: 64mm; flex: none; text-align: center; }
+.qr .box { width: 64mm; height: 64mm; background: var(--blanco); border-radius: 3mm; display: flex; align-items: center; justify-content: center; }
+.qr .box img { width: 50mm; }
+.qr small { display: block; margin-top: 4mm; font-size: 19pt; color: var(--lima); font-weight: 700; line-height: 1.2; }
+
+/* Pie */
+.footer { position: absolute; left: 0; bottom: 0; width: 900mm; height: 58mm; background: var(--azul); display: flex; align-items: center; padding: 0 30mm; gap: 14mm; }
+.footer .simp { height: 36mm; }
+.footer .evento { color: var(--blanco); font-weight: 700; font-size: 25pt; line-height: 1.3; }
+.footer .evento span { display: block; color: var(--lima); font-weight: 400; }
+.logos { margin-left: auto; width: 262mm; height: 40mm; border: 0.6mm dashed var(--lima); border-radius: 3mm; display: flex; align-items: center; justify-content: center; gap: 8mm; }
+.logos img { height: 32mm; background: var(--blanco); border-radius: 50%; }
+.logos p { color: var(--blanco); font-size: 22pt; line-height: 1.2; font-weight: 700; }
+.logos p span { display: block; color: var(--lima); font-weight: 400; font-size: 20pt; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <img class="hex-bg" src="assets/header-hex.png" alt="">
+  <img class="logo-x" src="assets/logo-x.png" alt="X Simposio Nacional">
+  <div class="eje">EJE: [EJE TEMÁTICO]</div>
+  <h1 class="titulo">AFRONEXIA: sistema con IA para la cultura y el turismo afro de Barrancabermeja</h1>
+  <p class="autores">Libardo Hover Bautista B.¹ · Instructores: Hugo Semanate Quiñonez¹, Alejandro Zabala¹</p>
+  <p class="afil">¹ SENA, Centro de Comercio · Tecnólogo en Análisis y Desarrollo de Software · Ficha 2758307 · [correo@ejemplo.com]</p>
+</header>
+
+<main class="cols">
+
+  <!-- Columna 1 -->
+  <section class="col">
+    <div class="sec"><div class="num">01</div><h2>Introducción</h2></div>
+    <p class="just">La memoria afrodescendiente de Barrancabermeja vive en sus cocinas, sus tambores y sus relatos del río, pero circula dispersa en redes personales y carteleras. Los visitantes no encuentran dónde planear su recorrido y los emprendedores afro no tienen una vitrina común. La salvaguardia del patrimonio inmaterial exige registrar y difundir estos saberes con sus portadores (UNESCO, 2003), y la Ley 70 de 1993 reconoce el derecho de las comunidades negras a su identidad cultural.</p>
+
+    <div class="gap"></div>
+    <div class="sec"><div class="num">02</div><h2>Objetivo</h2></div>
+    <div class="objetivo"><p><span class="verbo">Desarrollar</span> un sistema de información web con inteligencia artificial que integre y promueva la memoria, la cultura, el turismo y la economía afro de Barrancabermeja.</p></div>
+
+    <div class="gap"></div>
+    <div class="sec"><div class="num">03</div><h2>Metodología</h2></div>
+    <div class="paso">
+      <div class="hexi"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM8.5 12l2 2 4-4M8.5 17h7"/></svg></div>
+      <div><h3>Análisis de requisitos</h3><p>4 roles, 20 requisitos funcionales y 10 no funcionales</p></div>
+    </div>
+    <div class="paso">
+      <div class="hexi"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5z"/><path d="m3 13 9 5 9-5"/></svg></div>
+      <div><h3>Diseño</h3><p>Arquitectura en 3 capas y base de datos de 16 tablas</p></div>
+    </div>
+    <div class="paso">
+      <div class="hexi"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></svg></div>
+      <div><h3>Desarrollo incremental</h3><p>React, Node.js/Express, PostgreSQL y agente NEXIA</p></div>
+    </div>
+    <div class="paso">
+      <div class="hexi azul"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V4M4 20h16M8 16v-4M12 16V8M16 16v-6"/></svg></div>
+      <div><h3>Pruebas</h3><p>Pruebas automatizadas de la API y recorrido en navegador</p></div>
+    </div>
+
+    <div class="caja-mod">
+      <h3>Ecosistema AFRONEXIA · 8 módulos</h3>
+      <div class="mods">
+        <div class="mod"><b>01</b><span>Explorador</span></div>
+        <div class="mod"><b>02</b><span>Memoria</span></div>
+        <div class="mod"><b>03</b><span>Agenda</span></div>
+        <div class="mod"><b>04</b><span>Emprendimientos</span></div>
+        <div class="mod"><b>05</b><span>Rutas</span></div>
+        <div class="mod"><b>06</b><span>Experiencias</span></div>
+        <div class="mod ia"><b>07</b><span>Agente NEXIA</span></div>
+        <div class="mod"><b>08</b><span>Panel</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Columna 2 -->
+  <section class="col">
+    <div class="sec"><div class="num">04</div><h2>Resultados</h2></div>
+    <p class="just" style="margin-bottom:10mm">Se construyó la versión 2.0.0 como producto mínimo viable: 8 módulos, base de datos en PostgreSQL y el agente NEXIA, que arma itinerarios con hora por parada. Se instaló en Windows 11 con PostgreSQL 18 y se documentó con manuales de usuario y técnico.</p>
+    <div class="kpis">
+      <div class="kpi azul"><div class="v">30/30</div><div class="l">pruebas de la API aprobadas</div></div>
+      <div class="kpi"><div class="v">19/20</div><div class="l">requisitos con interfaz completa</div></div>
+      <div class="kpi"><div class="v">4 roles</div><div class="l">con permisos en el servidor</div></div>
+    </div>
+
+    <p class="fig-n">Figura 1</p>
+    <p class="fig-t">Pruebas automatizadas aprobadas por grupo</p>
+    <svg viewBox="0 0 760 440" width="266mm" role="img" aria-label="Pruebas automatizadas aprobadas por grupo" style="display:block">
+      <g font-family="Texto" font-size="24" fill="#2A2E4A">
+        <line x1="250" y1="10" x2="250" y2="400" stroke="#9AA0B8" stroke-width="1.5"/>
+        <line x1="250" y1="400" x2="740" y2="400" stroke="#9AA0B8" stroke-width="1.5"/>
+        <g stroke="#E3E6EE" stroke-width="1.2"><line x1="315" y1="10" x2="315" y2="400"/><line x1="380" y1="10" x2="380" y2="400"/><line x1="445" y1="10" x2="445" y2="400"/><line x1="510" y1="10" x2="510" y2="400"/><line x1="575" y1="10" x2="575" y2="400"/><line x1="640" y1="10" x2="640" y2="400"/><line x1="705" y1="10" x2="705" y2="400"/></g>
+        <g font-size="20" fill="#55597A" text-anchor="middle"><text x="250" y="428">0</text><text x="380" y="428">2</text><text x="510" y="428">4</text><text x="640" y="428">6</text></g>
+        <g text-anchor="end">
+          <text x="236" y="45">Salud y catálogo</text>
+          <text x="236" y="100">Autenticación</text>
+          <text x="236" y="155">Roles del emprendedor</text>
+          <text x="236" y="210">Contenido del admin</text>
+          <text x="236" y="265">Gestor y reservas</text>
+          <text x="236" y="320">Reservas</text>
+          <text x="236" y="375">Agente NEXIA</text>
+        </g>
+        <g fill="#83BF5E">
+          <rect x="250" y="20" width="455" height="36"/>
+          <rect x="250" y="75" width="260" height="36"/>
+          <rect x="250" y="130" width="325" height="36"/>
+          <rect x="250" y="185" width="195" height="36"/>
+          <rect x="250" y="240" width="325" height="36"/>
+          <rect x="250" y="295" width="130" height="36"/>
+          <rect x="250" y="350" width="260" height="36" fill="#4A8A2C"/>
+        </g>
+        <g font-weight="700" fill="#20244D">
+          <text x="715" y="46">7</text><text x="520" y="101">4</text><text x="585" y="156">5</text><text x="455" y="211">3</text><text x="585" y="266">5</text><text x="390" y="321">2</text><text x="520" y="376">4</text>
+        </g>
+      </g>
+    </svg>
+    <p class="nota"><i>Nota.</i> Elaboración propia. Ejecución del 24 de noviembre de 2026 sobre una base de datos nueva.</p>
+
+    <div class="gap" style="height:12mm"></div>
+    <p class="fig-n">Figura 2</p>
+    <p class="fig-t">NEXIA arma un itinerario de una tarde con datos del catálogo</p>
+    <img class="captura" src="assets/nexia.jpg" alt="Captura de pantalla del agente NEXIA">
+    <p class="nota"><i>Nota.</i> Captura de pantalla del sistema AFRONEXIA v2.0.0.</p>
+
+    <div class="gap" style="height:12mm"></div>
+    <p class="fig-n">Tabla 1</p>
+    <p class="fig-t">Roles del sistema y lo que cada uno puede hacer</p>
+    <table>
+      <tr><th>Rol</th><th>Puede</th></tr>
+      <tr><td class="r">Visitante</td><td>Consultar, conversar con NEXIA y reservar experiencias</td></tr>
+      <tr><td class="r">Emprendedor</td><td>Publicar sus productos y mejorarlos con IA</td></tr>
+      <tr><td class="r">Gestor cultural</td><td>Publicar eventos, saberes y rutas; atender reservas</td></tr>
+      <tr><td class="r">Administrador</td><td>Gestionar todo, usuarios e indicadores</td></tr>
+    </table>
+  </section>
+
+  <!-- Columna 3 -->
+  <section class="col">
+    <div class="sec"><div class="num">05</div><h2>Discusión</h2></div>
+    <p class="just">NEXIA recupera primero la información del catálogo con el modelo BM25 (Robertson &amp; Zaragoza, 2009) y solo después redacta la respuesta, como propone la generación aumentada por recuperación (Lewis et al., 2020). Así responde sin inventar datos y funciona incluso sin un servicio de IA pago. Limitaciones: los datos son de ejemplo y aún falta una prueba de uso con la comunidad.</p>
+
+    <div class="gap" style="height:12mm"></div>
+    <div class="callout">
+      <div class="hexi"><img src="assets/ic-bulb.png" alt=""></div>
+      <p>NEXIA responde solo con datos del catálogo comunitario</p>
+    </div>
+
+    <div class="sec"><div class="num">06</div><h2>Conclusiones</h2></div>
+    <div class="concl"><div class="n">1</div><p>AFRONEXIA reúne en un solo sistema la memoria, la agenda, las rutas y los emprendimientos afro.</p></div>
+    <div class="concl"><div class="n">2</div><p>Un agente con recuperación sobre el catálogo es útil sin depender de servicios pagos.</p></div>
+    <div class="concl"><div class="n">3</div><p>La ayuda en cada campo acerca la tecnología a los emprendedores afro.</p></div>
+
+    <div class="gap" style="height:8mm"></div>
+    <div class="sec"><div class="num">07</div><h2>Referencias</h2></div>
+    <div class="refs">
+      <p>Congreso de Colombia. (1993). <i>Ley 70 de 1993, por la cual se desarrolla el artículo transitorio 55 de la Constitución Política</i>. Diario Oficial No. 41.013.</p>
+      <p>Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N., Küttler, H., Lewis, M., Yih, W., Rocktäschel, T., Riedel, S., &amp; Kiela, D. (2020). Retrieval-augmented generation for knowledge-intensive NLP tasks. <i>Advances in Neural Information Processing Systems, 33</i>, 9459–9474.</p>
+      <p>Robertson, S., &amp; Zaragoza, H. (2009). The probabilistic relevance framework: BM25 and beyond. <i>Foundations and Trends in Information Retrieval, 3</i>(4), 333–389. https://doi.org/10.1561/1500000019</p>
+      <p>UNESCO. (2003). <i>Convención para la salvaguardia del patrimonio cultural inmaterial</i>. https://ich.unesco.org/es/convención</p>
+    </div>
+
+    <div class="contacto">
+      <div style="flex:1">
+        <h3>Contacto</h3>
+        <div class="c-item"><div class="hexi"><img src="assets/ic-mail.png" alt=""></div><p>[correo@ejemplo.com]</p></div>
+        <div class="c-item"><div class="hexi"><img src="assets/ic-orcid.png" alt=""></div><p>Ficha 2758307 · Tecnólogo ADSO</p></div>
+        <div class="c-item"><div class="hexi"><img src="assets/ic-group.png" alt=""></div><p>SENA, Centro de Comercio</p></div>
+      </div>
+      <div class="qr"><div class="box"><img src="assets/qr.png" alt="Espacio para código QR"></div><small>QR al repositorio</small></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <img class="simp" src="assets/simposio.png" alt="Simposio Nacional">
+  <div class="evento">X Simposio Nacional de Formación con Calidad y Pertinencia<span>1 y 2 de diciembre de 2026 · Medellín, Antioquia</span></div>
+  <div class="logos">
+    <img src="assets/afronexia-logo.png" alt="Logo AFRONEXIA">
+    <p>AFRONEXIA<span>SENA · Centro de Comercio</span></p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -6,10 +6,10 @@ Proyecto formativo del programa **Tecnólogo en Análisis y Desarrollo de Softwa
 
 | | |
 |---|---|
-| Aprendices | [NOMBRES DE LOS APRENDICES] |
-| Ficha | [NÚMERO DE FICHA] |
-| Instructor | [NOMBRE DEL INSTRUCTOR] |
-| Regional / Centro | [REGIONAL] – [CENTRO DE FORMACIÓN] |
+| Aprendiz | Libardo Hover Bautista B. |
+| Ficha | 2758307 |
+| Instructores | Hugo Semanate Quiñonez – Alejandro Zabala |
+| Centro de formación | SENA, Centro de Comercio |
 
 Incluye 8 módulos: Explorador, Memoria, Agenda, Emprendimientos, Rutas, Experiencias, Asistente IA (NEXIA) y Panel administrativo. Además trae la **Guía del emprendedor**.
 
@@ -26,6 +26,17 @@ Requisitos: [Node.js LTS](https://nodejs.org) y [PostgreSQL](https://www.postgre
 3. **`3-iniciar-afronexia.bat`**: abre el backend (puerto 5000) y el frontend (puerto 3000), y luego el navegador.
 
 En Linux o macOS: cargar la base de datos como se indica abajo y ejecutar `./iniciar-linux-mac.sh`.
+
+## Documentación (carpeta `docs/`)
+
+| Archivo | Contenido |
+|---|---|
+| `AFRONEXIA_Documentacion_del_proyecto` (.pdf / .docx) | Problema, objetivos, requisitos RF/RNF, casos de uso, arquitectura, modelo de datos, NEXIA, pruebas y conclusiones |
+| `AFRONEXIA_Manual_de_usuario` (.pdf / .docx) | Uso por rol, con capturas de pantalla |
+| `AFRONEXIA_Manual_tecnico.pdf` | Instalación, configuración, API, NEXIA, seguridad, despliegue y mantenimiento |
+| `GUIA_REGISTRO_EMPRENDIMIENTO` (.pdf / .md) | Guía paso a paso del formulario del emprendedor |
+| `SUBIR_A_GITHUB.md` | Cómo publicar este repositorio |
+| `capturas/` | Capturas de pantalla de los módulos |
 
 ## Estructura del repositorio
 
@@ -75,7 +86,7 @@ npm install
 npm run dev
 ```
 
-Para comprobar que todo funciona, ejecuta `cd backend && npm run test:api`. Corre 25 pruebas de humo: catálogo, roles, reservas y NEXIA.
+Para comprobar que todo funciona, ejecuta `cd backend && npm run test:api`. Corre 30 pruebas de humo: catálogo, roles, reservas y NEXIA.
 
 **Usuarios demo** (contraseña `Afronexia2026*`; cámbienla antes de publicar):
 
@@ -139,7 +150,7 @@ Archivos: `backend/src/services/nexia/`
 | GET | `/catalogo`, `/catalogo/:entidad`, `/catalogo/:entidad/:id` | público |
 | POST/PUT/DELETE | `/catalogo/:entidad[/:id]` | según rol (ver abajo) |
 | POST | `/reservas` | público |
-| GET/PATCH | `/reservas` | admin, emprendedor, gestor |
+| GET/PATCH | `/reservas` | admin, gestor cultural |
 | GET/POST | `/valoraciones`, `/favoritos`, `/mensajes` | sesión |
 | GET | `/admin/stats`, `/usuarios`, `/auditoria`, `/ai-logs` | administrador |
 

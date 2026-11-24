@@ -8,13 +8,16 @@
 - Panel administrativo con métricas reales, gestión de contenido, reservas, usuarios y auditoría.
 - Mapa interactivo (Leaflet) de todos los lugares.
 - Scripts de instalación y arranque para Windows (`1-…`, `2-…`, `3-….bat`).
-- Pruebas de humo de la API (`npm run test:api`).
+- Panel del gestor cultural (contenido y reservas).
+- Pruebas de humo de la API (`npm run test:api`, 30 casos).
+- Documentación del proyecto, manual de usuario y manual técnico en `docs/`.
 
 ### Cambiado
 - Catálogo (lugares, eventos, emprendimientos, saberes, rutas, experiencias) migrado de datos fijos en el frontend a PostgreSQL, con respaldo local.
 - Esquema de base de datos unificado e idempotente (`database/init.sql`), que migra la BD v1.
 
 ### Seguridad
+- Las reservas (datos personales de visitantes) solo las ven el administrador y el gestor cultural.
 - Contraseñas con bcrypt, sesiones JWT, control de roles en el servidor, límite de intentos de login, helmet y CORS configurable.
 - Se bloquea el auto-registro como administrador.
 
