@@ -1,0 +1,159 @@
+{
+  "titulo": "Guía paso a paso para registrar tu emprendimiento en AFRONEXIA",
+  "intro": "Esta guía explica qué escribir en cada casilla. En el formulario encontrarás la misma ayuda tocando la pestaña «¿Qué escribo aquí?» junto a cada campo.",
+  "antes": [
+    "Ten a mano tu número de WhatsApp activo (el que usas para vender).",
+    "Piensa en 2 o 3 frases que cuenten qué ofreces y qué lo hace especial.",
+    "Si tienes una foto de tu producto publicada en internet (Instagram, Facebook, Google Fotos), copia su enlace.",
+    "Define un precio de referencia en pesos colombianos."
+  ],
+  "pasos": [
+    {
+      "id": "registro",
+      "titulo": "Paso 1 · Crea tu cuenta de emprendedor",
+      "donde": "Menú «Ingresar» → pestaña «Registrarse como Nuevo Actor» → tarjeta «Emprendedor Afro».",
+      "campos": [
+        {
+          "clave": "nombre",
+          "etiqueta": "Nombre completo",
+          "obligatorio": true,
+          "que": "Tu nombre y apellido como persona responsable del emprendimiento. Así aparecerás como titular.",
+          "ejemplo": "María Aminta Perea",
+          "evita": "No escribas aquí el nombre del negocio ni apodos; el negocio va más abajo."
+        },
+        {
+          "clave": "email",
+          "etiqueta": "Correo electrónico",
+          "obligatorio": true,
+          "que": "Un correo que revises con frecuencia. Será tu usuario para ingresar a AFRONEXIA.",
+          "ejemplo": "saboresdeaminta@gmail.com",
+          "evita": "Revisa que no tenga espacios ni letras de más. Si ya está registrado, usa «Iniciar sesión»."
+        },
+        {
+          "clave": "password",
+          "etiqueta": "Contraseña",
+          "obligatorio": true,
+          "que": "Mínimo 8 caracteres. Combina letras y números para que sea segura.",
+          "ejemplo": "Coco2026Rio",
+          "evita": "No uses tu número de cédula, tu fecha de nacimiento ni «12345678». No la compartas."
+        },
+        {
+          "clave": "negocio_nombre",
+          "etiqueta": "Nombre del negocio / taller",
+          "obligatorio": true,
+          "que": "El nombre con el que te conocen tus clientes. Es el título de tu ficha en el catálogo.",
+          "ejemplo": "Sabores de Aminta",
+          "evita": "Evita escribirlo todo en MAYÚSCULAS o agregar teléfonos o precios en el nombre."
+        },
+        {
+          "clave": "negocio_categoria",
+          "etiqueta": "Categoría productiva",
+          "obligatorio": true,
+          "que": "Elige la que mejor describe lo que más vendes: gastronomía, artesanías, estética y trenzado, música y tamboras o turismo y paseos en lancha.",
+          "ejemplo": "Gastronomía Tradicional",
+          "evita": "Si haces varias cosas, elige la principal; luego puedes publicar productos de otras categorías."
+        },
+        {
+          "clave": "negocio_ubicacion",
+          "etiqueta": "Barrio / comuna en Barrancabermeja",
+          "obligatorio": false,
+          "que": "El barrio, comuna o punto de referencia donde atiendes o entregas. Ayuda a los turistas a ubicarte.",
+          "ejemplo": "Comuna 7, cerca de la Casa de la Cultura",
+          "evita": "No es obligatorio poner la dirección exacta de tu casa si no atiendes allí."
+        },
+        {
+          "clave": "telefono",
+          "etiqueta": "WhatsApp de contacto",
+          "obligatorio": true,
+          "que": "Tu número de WhatsApp con el indicativo de Colombia (57) delante, solo números. Los clientes te escribirán directo desde el botón «WhatsApp».",
+          "ejemplo": "573001234567",
+          "evita": "No pongas espacios, guiones, el signo + ni un número fijo sin WhatsApp."
+        }
+      ]
+    },
+    {
+      "id": "publicacion",
+      "titulo": "Paso 2 · Publica tu producto, plato o experiencia",
+      "donde": "Módulo «Emprendimientos» → botón «+ Publicar mi Producto / Plato» (aparece al iniciar sesión como emprendedor).",
+      "campos": [
+        {
+          "clave": "nombre",
+          "etiqueta": "Nombre del producto / plato",
+          "obligatorio": true,
+          "que": "Cómo se llama lo que ofreces. Que sea claro para alguien que no conoce la región.",
+          "ejemplo": "Arroz de coco con bocachico frito",
+          "evita": "Evita nombres genéricos como «Comida» o «Producto 1»."
+        },
+        {
+          "clave": "categoria",
+          "etiqueta": "Categoría",
+          "obligatorio": true,
+          "que": "El tipo de producto. Sirve para que aparezca en los filtros y para que NEXIA lo recomiende cuando alguien pregunte por ese tema.",
+          "ejemplo": "Gastronomía",
+          "evita": "Elige la categoría del producto, no la de tu negocio en general."
+        },
+        {
+          "clave": "precio",
+          "etiqueta": "Precio ($ COP)",
+          "obligatorio": true,
+          "que": "El precio de referencia en pesos colombianos, solo el número. Si varía, pon el precio «desde».",
+          "ejemplo": "28000",
+          "evita": "No escribas puntos, el signo $ ni la palabra «pesos»."
+        },
+        {
+          "clave": "email",
+          "etiqueta": "Correo electrónico de contacto",
+          "obligatorio": true,
+          "que": "El correo donde quieres recibir consultas de clientes, agencias o entidades.",
+          "ejemplo": "saboresdeaminta@gmail.com",
+          "evita": "Usa un correo que revises; los clientes esperan respuesta."
+        },
+        {
+          "clave": "tel",
+          "etiqueta": "Teléfono / WhatsApp",
+          "obligatorio": true,
+          "que": "El WhatsApp para pedidos de este producto: 57 + tu número, solo dígitos.",
+          "ejemplo": "573001234567",
+          "evita": "Sin espacios, guiones ni signo +."
+        },
+        {
+          "clave": "barrio",
+          "etiqueta": "Barrio o punto de venta",
+          "obligatorio": false,
+          "que": "Dónde se compra o se recoge el producto.",
+          "ejemplo": "Mercado Central – Fogón Afro, local 12",
+          "evita": "Si solo vendes por encargo, puedes escribir «Por encargo – Comuna 7»."
+        },
+        {
+          "clave": "social",
+          "etiqueta": "Red social",
+          "obligatorio": false,
+          "que": "Tu usuario de Instagram o Facebook, empezando con @.",
+          "ejemplo": "@saboresdeaminta",
+          "evita": "No pegues el enlace completo; solo el usuario."
+        },
+        {
+          "clave": "img",
+          "etiqueta": "URL de la foto / imagen",
+          "obligatorio": false,
+          "que": "El enlace (empieza por https://) de una foto de tu producto publicada en internet. Si lo dejas vacío, se usa una imagen de referencia.",
+          "ejemplo": "https://i.imgur.com/tu-foto.jpg",
+          "evita": "Usa fotos tuyas, con buena luz y sin texto encima. No uses fotos de otros negocios."
+        },
+        {
+          "clave": "desc",
+          "etiqueta": "Descripción del producto",
+          "obligatorio": true,
+          "que": "En 2 o 3 frases: qué es, con qué se prepara o hace, y su historia o tradición. Luego puedes tocar «✨ Mejorar con IA» para que NEXIA la redacte mejor sin inventar datos.",
+          "ejemplo": "Arroz cocinado en leche de coco con titoté, como lo hacía mi abuela del Pacífico. Se sirve con bocachico frito, patacón y ensalada.",
+          "evita": "No copies textos de otras páginas ni prometas cosas que no ofreces (domicilios, horarios…). Revisa lo que proponga la IA antes de publicar."
+        }
+      ]
+    }
+  ],
+  "despues": [
+    "Tu ficha aparece de inmediato en el módulo «Emprendimientos» y NEXIA empieza a recomendarla.",
+    "Los clientes te contactan por WhatsApp o correo desde los botones de tu tarjeta.",
+    "Puedes eliminar o actualizar tus productos cuando quieras; solo tú (y el administrador) pueden modificarlos."
+  ]
+}
