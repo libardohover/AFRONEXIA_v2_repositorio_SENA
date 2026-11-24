@@ -1,0 +1,140 @@
+/* =========================================================
+   AFRONEXIA v2 – estilos de los componentes nuevos
+   (se carga después de App.css)
+   ========================================================= */
+
+/* Avisos */
+.alert-success-box, .alert-error-box { padding: 11px 14px; border-radius: 10px; font-size: 13.5px; margin: 0 0 16px; font-weight: 600; }
+.alert-success-box { background: #F0FDF4; border: 1px solid #BBF7D0; color: #166534; }
+.alert-error-box { background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; }
+.aviso-offline { font-size: 12.5px; color: #64748B; margin: 6px 0 14px; }
+.aviso-agenda { background: #FEF3C7; border: 1px solid #FDE68A; color: #92400E; border-radius: 10px; padding: 11px 14px; font-size: 13.5px; margin-bottom: 16px; }
+
+/* ---------- Campo guiado: pestaña «¿Qué escribo aquí?» ---------- */
+.campo-guiado { display: flex; flex-direction: column; gap: 4px; }
+.campo-guiado-cabecera { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.campo-guiado-cabecera label { margin: 0 !important; }
+.campo-obligatorio { color: #D9531E; font-weight: 800; }
+.campo-opcional { color: #94A3B8; font-weight: 600; font-size: 12px; }
+.campo-guiado-pestana {
+  border: 1px solid #16A34A; background: #F0FDF4; color: #0B3B24; font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 12px 12px 0 0; cursor: pointer; font-family: inherit; line-height: 1.4;
+}
+.campo-guiado-pestana:hover { background: #DCFCE7; }
+.campo-guiado.abierto .campo-guiado-pestana { background: #0B3B24; color: #FFFFFF; border-color: #0B3B24; }
+.campo-guiado-ayuda {
+  background: #F0FDF4; border: 1px solid #BBF7D0; border-left: 4px solid #16A34A; border-radius: 0 8px 8px 8px;
+  padding: 9px 12px; font-size: 12.5px; color: #1E293B; line-height: 1.5; animation: guia-entrar .15s ease-out;
+}
+.campo-guiado-ayuda p { margin: 0 0 4px; }
+.campo-guiado-ayuda p:last-child { margin: 0; }
+.campo-ejemplo { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: #FFFFFF; border: 1px dashed #86EFAC; padding: 1px 6px; border-radius: 6px; font-size: 12px; }
+.campo-evita { color: #9A3412; }
+@keyframes guia-entrar { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+.campo-guiado.full-col { grid-column: 1 / -1; }
+.campo-guiado input, .campo-guiado select, .campo-guiado textarea { width: 100%; }
+.form-ayuda-intro { font-size: 13px; color: #475569; margin: -4px 0 14px; }
+.guia-registro-aviso { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 10px; padding: 10px 12px; font-size: 13px; color: #78350F; margin-bottom: 12px; }
+.link-inline { background: none; border: none; padding: 0; color: #0B3B24; font-weight: 800; text-decoration: underline; cursor: pointer; font-family: inherit; font-size: inherit; }
+
+/* Emprendimientos */
+.emp-botones { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-guia-link { background: #FFFFFF; border: 1px solid #0B3B24; color: #0B3B24; font-weight: 700; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 13px; }
+.btn-guia-link:hover { background: #F0FDF4; }
+.btn-ai-magic { align-self: flex-start; margin-top: 6px; background: linear-gradient(135deg, #7C3AED, #D9531E); color: #FFFFFF; border: none; padding: 6px 12px; border-radius: 16px; font-weight: 700; font-size: 12px; cursor: pointer; font-family: inherit; }
+.btn-ai-magic:disabled { opacity: .6; cursor: wait; }
+.emp-preview { margin: 6px 0 16px; }
+.emp-preview-label { display: block; font-size: 11px; font-weight: 800; color: #64748B; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+.emp-preview-card { max-width: 320px; }
+.btn-emp-submit:disabled { opacity: .6; cursor: wait; }
+.btn-eliminar-propio { margin-top: 8px; background: transparent; border: 1px dashed #FCA5A5; color: #B91C1C; border-radius: 8px; padding: 6px; font-size: 12px; cursor: pointer; font-family: inherit; }
+.catalogo-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.buscador-mini { padding: 8px 12px; border: 1px solid #CBD5E1; border-radius: 20px; font-family: inherit; font-size: 13px; min-width: 220px; }
+
+/* Guía paso a paso */
+.guia-acciones { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.guia-bloque { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 18px 22px; margin-bottom: 16px; }
+.guia-bloque h2 { margin: 0 0 8px; font-size: 19px; color: #0B3B24; }
+.guia-bloque ul { margin: 6px 0 0; padding-left: 20px; line-height: 1.7; font-size: 14px; }
+.guia-donde { font-size: 13.5px; color: #475569; background: #F8FAFC; border-radius: 8px; padding: 8px 10px; }
+.guia-campos { padding-left: 20px; margin: 10px 0 0; }
+.guia-campos li { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px dashed #E2E8F0; font-size: 14px; line-height: 1.55; }
+.guia-campos li:last-child { border-bottom: none; }
+.guia-campos h3 { margin: 0 0 4px; font-size: 15px; }
+.guia-campos p { margin: 2px 0; }
+.solo-print { display: none; }
+@media print {
+  .navbar-oficial, .footer-afro, .nx-flotante-wrap, .no-print { display: none !important; }
+  .solo-print { display: block; font-size: 22px; }
+  .guia-bloque { border: none; padding: 0; }
+  .guia-bloque h2 { break-after: avoid; }
+  .guia-campos li { break-inside: avoid; }
+  body { background: #FFFFFF; }
+}
+
+/* Asistente */
+.asistente-layout { display: grid; grid-template-columns: 270px 1fr; gap: 18px; align-items: start; }
+.asistente-atajos { display: flex; flex-direction: column; gap: 8px; }
+.asistente-atajos h4 { margin: 0 0 4px; color: #0B3B24; }
+.asistente-atajos .prompt-card-btn { text-align: left; display: flex; gap: 8px; align-items: flex-start; }
+.asistente-nota { margin-top: 8px; background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 10px; padding: 10px 12px; font-size: 12.5px; color: #14532D; }
+.asistente-nota p { margin: 4px 0 0; line-height: 1.5; }
+
+/* Explorador: mapa */
+.vista-toggle { display: flex; gap: 8px; margin-bottom: 14px; }
+.map-wrapper { border-radius: 12px; overflow: hidden; border: 1px solid #E2E8F0; margin-bottom: 20px; }
+.leaflet-map { height: 460px; width: 100%; }
+.popup-card h4 { margin: 4px 0; } .popup-card p { margin: 0 0 4px; font-size: 12px; }
+.popup-badge { font-size: 10px; font-weight: 800; color: #D9531E; text-transform: uppercase; }
+
+/* Agenda */
+.evento-pasado { opacity: .72; }
+.evento-pasado .agenda-card-img { filter: grayscale(.6); }
+.badge-finalizado { background: #F1F5F9; color: #475569; font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 10px; margin-left: 6px; }
+
+/* Experiencias: reserva */
+.exp-desc { margin: 4px 0 8px; }
+.modal-reserva { background: #FFFFFF; border-radius: 14px; width: 100%; max-width: 520px; max-height: 92vh; overflow: auto; box-shadow: 0 20px 50px rgba(0,0,0,.3); }
+.modal-reserva-header { display: flex; justify-content: space-between; gap: 10px; padding: 16px 18px; background: #0B3B24; color: #FFFFFF; }
+.modal-reserva-header h3 { margin: 2px 0; }
+.modal-reserva-header small { color: #A7F3D0; }
+.form-reserva { padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.form-reserva label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 700; color: #475569; }
+.form-reserva input, .form-reserva textarea { padding: 8px 10px; border: 1px solid #CBD5E1; border-radius: 8px; font-family: inherit; font-size: 13.5px; }
+.reserva-nota { font-size: 12px; color: #64748B; margin: 0; }
+.reserva-ok { padding: 28px; text-align: center; }
+.reserva-ok-icono { font-size: 42px; }
+
+/* Panel administrativo */
+.admin-secciones { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.admin-subtitulo { margin: 24px 0 12px; color: #0B3B24; }
+.kpi-main-grid:has(> :nth-child(4)) { grid-template-columns: repeat(4, 1fr); }
+.admin-dos-columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.table-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; overflow-x: auto; }
+.table-card h4 { margin: 0 0 10px; color: #0B3B24; }
+.custom-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.custom-table th { text-align: left; color: #64748B; font-weight: 700; border-bottom: 1px solid #E2E8F0; padding: 6px; }
+.custom-table td { border-bottom: 1px solid #F1F5F9; padding: 7px 6px; vertical-align: top; }
+.barras { display: flex; align-items: flex-end; gap: 8px; height: 150px; padding-top: 16px; }
+.barra-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 3px; }
+.barra { width: 100%; max-width: 34px; background: linear-gradient(180deg, #16A34A, #0B3B24); border-radius: 6px 6px 0 0; min-height: 2px; }
+.barra-valor { font-size: 11px; font-weight: 800; color: #0B3B24; }
+.barra-col small { font-size: 10px; color: #94A3B8; }
+.fila-intencion { display: grid; grid-template-columns: 110px 1fr 30px; align-items: center; gap: 8px; font-size: 12.5px; margin-bottom: 6px; text-transform: capitalize; }
+.intencion-barra { background: #F1F5F9; border-radius: 6px; height: 10px; overflow: hidden; }
+.intencion-barra div { height: 100%; background: #D9531E; border-radius: 6px; }
+.crud-item-texto { display: flex; flex-direction: column; }
+.crud-item-texto small { color: #64748B; font-size: 12px; }
+.crud-item-acciones { display: flex; gap: 6px; align-items: center; }
+.btn-estado { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 4px 8px; font-size: 11.5px; cursor: pointer; font-family: inherit; }
+.crud-row-item.borrador { background: #FFFBEB; }
+.estado-reserva { font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 10px; text-transform: uppercase; }
+.estado-reserva.pendiente { background: #FEF3C7; color: #92400E; }
+.estado-reserva.confirmada { background: #DCFCE7; color: #166534; }
+.estado-reserva.cancelada { background: #FEE2E2; color: #991B1B; }
+.acciones-reserva button { margin: 0 4px 4px 0; background: #FFFFFF; border: 1px solid #CBD5E1; border-radius: 6px; padding: 3px 8px; cursor: pointer; font-size: 11.5px; }
+
+@media (max-width: 860px) {
+  .asistente-layout, .admin-dos-columnas { grid-template-columns: 1fr; }
+  .kpi-main-grid:has(> :nth-child(4)) { grid-template-columns: 1fr 1fr; }
+}

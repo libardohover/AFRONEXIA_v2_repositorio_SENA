@@ -1,0 +1,67 @@
+.nx-chat { display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; overflow: hidden; font-size: 13.5px; }
+.nx-pagina { height: 640px; box-shadow: 0 6px 24px rgba(11,59,36,0.08); }
+.nx-flotante { width: 380px; height: 580px; max-height: calc(100vh - 110px); box-shadow: 0 14px 40px rgba(0,0,0,0.25); border: 2px solid #D9531E; }
+.nx-header { display: flex; align-items: center; gap: 10px; background: #0B3B24; color: #FFFFFF; padding: 10px 14px; }
+.nx-avatar { width: 36px; height: 36px; border-radius: 50%; background: #FFFFFF; object-fit: contain; padding: 2px; }
+.nx-header-txt { flex: 1; display: flex; flex-direction: column; }
+.nx-header-txt small { color: #A7F3D0; font-size: 11px; }
+.nx-header-btns button { background: transparent; border: none; color: #FFFFFF; font-size: 16px; cursor: pointer; padding: 4px 6px; border-radius: 6px; }
+.nx-header-btns button:hover { background: rgba(255,255,255,0.12); }
+.nx-body { flex: 1; overflow-y: auto; padding: 14px; background: #FAF8F5; display: flex; flex-direction: column; gap: 12px; }
+.nx-msg { display: flex; flex-direction: column; gap: 6px; max-width: 92%; }
+.nx-user { align-self: flex-end; align-items: flex-end; }
+.nx-bot { align-self: flex-start; }
+.nx-burbuja { padding: 10px 13px; border-radius: 14px; line-height: 1.5; }
+.nx-user .nx-burbuja { background: #D9531E; color: #FFFFFF; border-bottom-right-radius: 4px; }
+.nx-bot .nx-burbuja { background: #FFFFFF; color: #0F172A; border: 1px solid #E2E8F0; border-bottom-left-radius: 4px; }
+.nx-error .nx-burbuja { background: #FEF2F2; border-color: #FECACA; color: #991B1B; }
+.nx-linea { min-height: 2px; }
+.nx-vineta { padding-left: 4px; margin-top: 3px; }
+.nx-typing { display: flex; gap: 4px; padding: 14px; }
+.nx-typing span { width: 7px; height: 7px; border-radius: 50%; background: #16A34A; animation: nx-bote 1s infinite ease-in-out; }
+.nx-typing span:nth-child(2) { animation-delay: .15s; } .nx-typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes nx-bote { 0%, 80%, 100% { opacity: .3; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-4px); } }
+.nx-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 8px; width: 100%; }
+.nx-flotante .nx-cards { grid-template-columns: 1fr 1fr; }
+.nx-card { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+.nx-card-pasada { opacity: .7; }
+.nx-card img { width: 100%; height: 72px; object-fit: cover; }
+.nx-card-body { padding: 8px; display: flex; flex-direction: column; gap: 2px; }
+.nx-card-body strong { font-size: 12.5px; color: #0B3B24; line-height: 1.3; }
+.nx-card-body small { font-size: 11px; color: #64748B; }
+.nx-card-detalle { color: #475569 !important; }
+.nx-card-tipo { font-size: 10px; text-transform: uppercase; letter-spacing: .04em; font-weight: 800; color: #D9531E; }
+.nx-card-acciones { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.nx-card-acciones button { font-size: 10.5px; border: 1px solid #CBD5E1; background: #F8FAFC; border-radius: 12px; padding: 3px 8px; cursor: pointer; color: #0B3B24; font-weight: 600; }
+.nx-card-acciones button:hover { background: #ECFDF5; border-color: #16A34A; }
+.nx-itinerario { background: #FFFFFF; border: 1px solid #BBF7D0; border-radius: 12px; padding: 10px 12px; width: 100%; }
+.nx-it-dia + .nx-it-dia { margin-top: 10px; padding-top: 10px; border-top: 1px dashed #E2E8F0; }
+.nx-it-titulo { font-weight: 800; color: #0B3B24; margin-bottom: 6px; }
+.nx-it-parada { display: grid; grid-template-columns: 70px 12px 1fr; gap: 6px; align-items: start; padding: 4px 0; }
+.nx-it-hora { font-size: 11px; font-weight: 800; color: #D9531E; padding-top: 1px; }
+.nx-it-punto { width: 10px; height: 10px; border-radius: 50%; background: #16A34A; margin-top: 3px; box-shadow: 0 0 0 3px #DCFCE7; }
+.nx-it-parada strong { display: block; font-size: 12.5px; }
+.nx-it-parada small { color: #64748B; font-size: 11.5px; }
+.nx-feedback { display: flex; align-items: center; gap: 4px; font-size: 11px; color: #94A3B8; }
+.nx-feedback button { background: transparent; border: 1px solid transparent; border-radius: 8px; cursor: pointer; padding: 1px 5px; font-size: 13px; opacity: .7; }
+.nx-feedback button:hover:not(:disabled), .nx-feedback button.activo { opacity: 1; border-color: #CBD5E1; background: #FFFFFF; }
+.nx-sugerencias { display: flex; gap: 6px; padding: 8px 12px; overflow-x: auto; background: #FAF8F5; border-top: 1px solid #F1F5F9; }
+.nx-sugerencias button { flex-shrink: 0; border: 1px solid #16A34A; color: #0B3B24; background: #F0FDF4; border-radius: 16px; padding: 5px 11px; font-size: 12px; cursor: pointer; font-weight: 600; }
+.nx-sugerencias button:hover { background: #DCFCE7; }
+.nx-footer { display: flex; gap: 6px; padding: 10px; border-top: 1px solid #E2E8F0; background: #FFFFFF; }
+.nx-footer input { flex: 1; padding: 9px 13px; border: 1px solid #CBD5E1; border-radius: 20px; outline: none; font-family: inherit; font-size: 13px; }
+.nx-footer input:focus { border-color: #16A34A; box-shadow: 0 0 0 3px #DCFCE7; }
+.nx-footer button { background: #0B3B24; color: #FFFFFF; border: none; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: 700; font-family: inherit; }
+.nx-footer button:disabled { opacity: .5; cursor: not-allowed; }
+.nx-footer .nx-mic { background: #F1F5F9; color: #0F172A; padding: 8px 11px; }
+.nx-footer .nx-mic.activo { background: #FEE2E2; animation: nx-pulso 1s infinite; }
+@keyframes nx-pulso { 50% { box-shadow: 0 0 0 5px rgba(239,68,68,.25); } }
+
+/* Botón y contenedor flotante */
+.nx-flotante-wrap { position: fixed; bottom: 22px; right: 22px; z-index: 9999; }
+.nx-btn-abrir { display: flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #D9531E, #0B3B24); color: #FFFFFF; border: none; padding: 10px 18px 10px 10px; border-radius: 30px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,0.25); font-family: inherit; font-size: 13.5px; }
+.nx-btn-abrir img { width: 32px; height: 32px; border-radius: 50%; background: #FFFFFF; object-fit: contain; }
+@media (max-width: 480px) {
+  .nx-flotante-wrap { right: 8px; left: 8px; bottom: 8px; }
+  .nx-flotante { width: 100%; height: calc(100vh - 80px); }
+}

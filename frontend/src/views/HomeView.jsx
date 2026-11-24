@@ -50,10 +50,10 @@ export default function HomeView({ setActiveTab }) {
         <div className="hero-search-box">
           <input 
             type="text" 
-            placeholder="🔍 Buscar un lugar, un saber, una ruta, un evento..."
+            placeholder="🔍 Pregúntale a NEXIA por un lugar, un saber, una ruta, un evento…"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && setActiveTab('explorador')}
+            onKeyDown={(e) => { if (e.key === 'Enter' && searchTerm.trim()) { sessionStorage.setItem('nexia_pregunta', searchTerm.trim()); setActiveTab('asistente'); } }}
           />
         </div>
 

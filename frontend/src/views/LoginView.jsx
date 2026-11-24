@@ -1,4 +1,14 @@
 import React, { useState } from 'react';
+import CampoGuiado from '../components/CampoGuiado';
+import { api } from '../lib/api';
+
+const DEMO_PASSWORD = 'Afronexia2026*';
+
+// En el registro usa la casilla guiada; en el inicio de sesión, una casilla normal.
+function Campo({ guiado, clave, etiqueta, children }) {
+  if (guiado) return <CampoGuiado paso="registro" clave={clave} etiqueta={etiqueta} className="form-group-afro">{children}</CampoGuiado>;
+  return <div className="form-group-afro"><label>{etiqueta}:</label>{children}</div>;
+}
 
 export default function LoginView({ onLoginSuccess, setActiveTab }) {
   const [isRegister, setIsRegister] = useState(false);
@@ -14,7 +24,7 @@ export default function LoginView({ onLoginSuccess, setActiveTab }) {
     telefono: '',
     negocio_nombre: '',
     negocio_categoria: 'Gastronomía',
-    negocio_ubicacion: 'Comuna 7, Barrancabermeja',
+    negocio_ubicacion: '',
     saber_tipo: 'Oralidad y Saberes'
   });
 
@@ -23,61 +33,40 @@ export default function LoginView({ onLoginSuccess, setActiveTab }) {
     setError('');
   };
 
+  const campo = (k) => (e) => setFormData({ ...formData, [k]: e.target.value });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    if (isRegister && formData.password.length < 8) { setError('La contraseña debe tener al menos 8 caracteres.'); return; }
+    if (isRegister && selectedRole === 'emprendedor' && formData.telefono.replace(/\D/g, '').length < 10) {
+      setError('Escribe tu WhatsApp con 57 delante y solo números (ej. 573001234567).'); return;
+    }
     setLoading(true);
+    try {
+      const data = isRegister
+        ? await api('/auth/register', { method: 'POST', body: { ...formData, telefono: formData.telefono.replace(/\D/g, ''), rol: selectedRole } })
+        : await api('/auth/login', { method: 'POST', body: { email: formData.email, password: formData.password } });
+      onLoginSuccess(data.usuario, data.token);
+      redirigirSegunRol(data.usuario.rol);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    if (isRegister) {
-      // REGISTRO DE ACTORES
-      try {
-        const res = await fetch('http://localhost:5000/api/v1/auth/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...formData,
-            rol: selectedRole
-          })
-        });
-        const data = await res.json();
-        if (res.ok) {
-          alert('🎉 ¡Bienvenido a AFRONEXIA, ' + data.usuario.nombre + '! Tu registro como ' + data.usuario.rol.toUpperCase() + ' ha sido exitoso.');
-          onLoginSuccess(data.usuario);
-          redirigirSegunRol(data.usuario.rol);
-        } else {
-          setError(data.error || 'Error al completar el registro.');
-        }
-      } catch {
-        // Modo local de respaldo
-        const fallbackUser = { nombre: formData.nombre || 'Usuario', email: formData.email, rol: selectedRole };
-        onLoginSuccess(fallbackUser);
-        redirigirSegunRol(selectedRole);
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      // INICIO DE SESIÓN
-      try {
-        const res = await fetch('http://localhost:5000/api/v1/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: formData.email, password: formData.password })
-        });
-        const data = await res.json();
-        if (res.ok) {
-          onLoginSuccess(data.usuario);
-          redirigirSegunRol(data.usuario.rol);
-        } else {
-          setError(data.error || 'Credenciales incorrectas.');
-        }
-      } catch {
-        // Fallback rápido
-        const fallbackUser = { nombre: formData.email.split('@')[0], email: formData.email, rol: selectedRole };
-        onLoginSuccess(fallbackUser);
-        redirigirSegunRol(selectedRole);
-      } finally {
-        setLoading(false);
-      }
+  const ingresarDemo = async (email) => {
+    setError('');
+    setLoading(true);
+    try {
+      const data = await api('/auth/login', { method: 'POST', body: { email, password: DEMO_PASSWORD } });
+      onLoginSuccess(data.usuario, data.token);
+      redirigirSegunRol(data.usuario.rol);
+    } catch (err) {
+      setError(err.message + ' (Los perfiles de prueba requieren el backend con seed.sql cargado.)');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -146,55 +135,31 @@ export default function LoginView({ onLoginSuccess, setActiveTab }) {
                 <small>Documenta saberes ancestrales y publica eventos folclóricos.</small>
               </div>
 
-              <div 
-                className={selectedRole === 'administrador' ? 'actor-card selected' : 'actor-card'}
-                onClick={() => handleRoleChange('administrador')}
-              >
-                <div className="actor-icon">👑</div>
-                <strong>Administrador</strong>
-                <small>Gobernanza, auditoría y control de indicadores del sistema.</small>
-              </div>
             </div>
           </div>
         )}
 
-        {/* FORMULARIO DINÁMICO */}
+        {/* FORMULARIO DINÁMICO (en el registro cada casilla tiene su pestaña «¿Qué escribo aquí?») */}
+        {isRegister && selectedRole === 'emprendedor' && (
+          <div className="guia-registro-aviso">
+            📘 ¿Primera vez? Toca <strong>ⓘ ¿Qué escribo aquí?</strong> en cada casilla o revisa la{' '}
+            <button type="button" className="link-inline" onClick={() => setActiveTab('guia-emprendedor')}>guía paso a paso completa</button>.
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="auth-unified-form">
           {isRegister && (
-            <div className="form-group-afro">
-              <label>Nombre Completo:</label>
-              <input 
-                type="text" 
-                required 
-                placeholder="Ej: María Aminta Perea"
-                value={formData.nombre}
-                onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-              />
-            </div>
+            <CampoGuiado paso="registro" clave="nombre" etiqueta="Nombre Completo" className="form-group-afro">
+              <input type="text" required placeholder="Ej: María Aminta Perea" value={formData.nombre} onChange={campo('nombre')} maxLength={150} />
+            </CampoGuiado>
           )}
 
           <div className="form-row-dual">
-            <div className="form-group-afro">
-              <label>Correo Electrónico:</label>
-              <input 
-                type="email" 
-                required 
-                placeholder="tu@correo.com"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              />
-            </div>
-
-            <div className="form-group-afro">
-              <label>Contraseña:</label>
-              <input 
-                type="password" 
-                required 
-                placeholder="••••••••"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              />
-            </div>
+            <Campo guiado={isRegister} clave="email" etiqueta="Correo Electrónico">
+              <input type="email" required placeholder="tu@correo.com" autoComplete="email" value={formData.email} onChange={campo('email')} />
+            </Campo>
+            <Campo guiado={isRegister} clave="password" etiqueta="Contraseña">
+              <input type="password" required minLength={isRegister ? 8 : undefined} placeholder="••••••••" autoComplete={isRegister ? 'new-password' : 'current-password'} value={formData.password} onChange={campo('password')} />
+            </Campo>
           </div>
 
           {/* CAMPOS ESPECÍFICOS PARA EMPRENDEDORES */}
@@ -202,52 +167,26 @@ export default function LoginView({ onLoginSuccess, setActiveTab }) {
             <div className="extra-role-fields">
               <span className="extra-role-badge">DATOS DEL EMPRENDIMIENTO AFRO</span>
               <div className="form-row-dual">
-                <div className="form-group-afro">
-                  <label>Nombre del Negocio / Taller:</label>
-                  <input 
-                    type="text" 
-                    required 
-                    placeholder="Ej: Sabores de Aminta"
-                    value={formData.negocio_nombre}
-                    onChange={(e) => setFormData({ ...formData, negocio_nombre: e.target.value })}
-                  />
-                </div>
-
-                <div className="form-group-afro">
-                  <label>Categoría Productiva:</label>
-                  <select 
-                    value={formData.negocio_categoria}
-                    onChange={(e) => setFormData({ ...formData, negocio_categoria: e.target.value })}
-                  >
+                <CampoGuiado paso="registro" clave="negocio_nombre" etiqueta="Nombre del Negocio / Taller" className="form-group-afro">
+                  <input type="text" required placeholder="Ej: Sabores de Aminta" value={formData.negocio_nombre} onChange={campo('negocio_nombre')} maxLength={200} />
+                </CampoGuiado>
+                <CampoGuiado paso="registro" clave="negocio_categoria" etiqueta="Categoría Productiva" className="form-group-afro">
+                  <select value={formData.negocio_categoria} onChange={campo('negocio_categoria')}>
                     <option value="Gastronomía">Gastronomía Tradicional</option>
                     <option value="Artesanía">Artesanías y Fibras</option>
                     <option value="Estética ancestral">Estética y Trenzado</option>
                     <option value="Música tradicional">Música y Tamboras</option>
                     <option value="Turismo comunitario">Turismo y Paseos en Lancha</option>
                   </select>
-                </div>
+                </CampoGuiado>
               </div>
-
               <div className="form-row-dual">
-                <div className="form-group-afro">
-                  <label>Barrio / Comuna en Barrancabermeja:</label>
-                  <input 
-                    type="text" 
-                    placeholder="Ej: Comuna 7, Paseo del Río"
-                    value={formData.negocio_ubicacion}
-                    onChange={(e) => setFormData({ ...formData, negocio_ubicacion: e.target.value })}
-                  />
-                </div>
-
-                <div className="form-group-afro">
-                  <label>WhatsApp de Contacto:</label>
-                  <input 
-                    type="text" 
-                    placeholder="Ej: 573001234567"
-                    value={formData.telefono}
-                    onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
-                  />
-                </div>
+                <CampoGuiado paso="registro" clave="negocio_ubicacion" etiqueta="Barrio / Comuna en Barrancabermeja" className="form-group-afro">
+                  <input type="text" placeholder="Ej: Comuna 7, Paseo del Río" value={formData.negocio_ubicacion} onChange={campo('negocio_ubicacion')} />
+                </CampoGuiado>
+                <CampoGuiado paso="registro" clave="telefono" etiqueta="WhatsApp de Contacto" className="form-group-afro">
+                  <input type="tel" required inputMode="numeric" placeholder="Ej: 573001234567" value={formData.telefono} onChange={campo('telefono')} />
+                </CampoGuiado>
               </div>
             </div>
           )}
@@ -258,10 +197,7 @@ export default function LoginView({ onLoginSuccess, setActiveTab }) {
               <span className="extra-role-badge">TIPO DE SABER PATRIMONIAL</span>
               <div className="form-group-afro">
                 <label>Área Cultural Principal:</label>
-                <select 
-                  value={formData.saber_tipo}
-                  onChange={(e) => setFormData({ ...formData, saber_tipo: e.target.value })}
-                >
+                <select value={formData.saber_tipo} onChange={campo('saber_tipo')}>
                   <option value="Oralidad y Saberes">Tradición Oral, Mitos y Relatos del Río</option>
                   <option value="Música y Danza">Cantos de Boga, Bullerengue y Tambora</option>
                   <option value="Cocinas Tradicionales">Portadora de Saberes Culinarios</option>
@@ -278,15 +214,15 @@ export default function LoginView({ onLoginSuccess, setActiveTab }) {
 
         {/* ACCESOS RÁPIDOS DE PRUEBA */}
         <div className="quick-roles-access">
-          <span className="quick-access-title">O ingresa rápidamente con perfiles de prueba:</span>
+          <span className="quick-access-title">O ingresa con perfiles de prueba (contraseña: Afronexia2026*):</span>
           <div className="quick-btn-group">
-            <button className="btn-quick-tag admin-tag" onClick={() => { onLoginSuccess({ nombre: 'Admin General', email: 'admin@afronexia.com', rol: 'administrador' }); setActiveTab('admin'); }}>
+            <button className="btn-quick-tag admin-tag" disabled={loading} onClick={() => ingresarDemo('admin@afronexia.com')}>
               👑 Administrador
             </button>
-            <button className="btn-quick-tag emp-tag" onClick={() => { onLoginSuccess({ nombre: 'María Aminta Perea', email: 'chava@gastronomia.com', rol: 'emprendedor' }); setActiveTab('emprendimientos'); }}>
+            <button className="btn-quick-tag emp-tag" disabled={loading} onClick={() => ingresarDemo('chava@gastronomia.com')}>
               🍲 Emprendedor
             </button>
-            <button className="btn-quick-tag gestor-tag" onClick={() => { onLoginSuccess({ nombre: 'Don Emiro Mosquera', email: 'emiro@cultura.org', rol: 'gestor_cultural' }); setActiveTab('memoria'); }}>
+            <button className="btn-quick-tag gestor-tag" disabled={loading} onClick={() => ingresarDemo('emiro@cultura.org')}>
               📜 Gestor Cultural
             </button>
           </div>

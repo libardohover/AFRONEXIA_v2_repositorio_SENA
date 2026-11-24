@@ -28,6 +28,7 @@ export default function Footer({ setActiveTab }) {
             <li onClick={() => setActiveTab('experiencias')}>Experiencias turísticas</li>
             <li onClick={() => setActiveTab('asistente')}>Asistente turístico con IA</li>
             <li onClick={() => setActiveTab('admin')}>Panel administrativo</li>
+            <li onClick={() => setActiveTab('guia-emprendedor')}>📘 Guía para emprendedores</li>
           </ul>
         </div>
 

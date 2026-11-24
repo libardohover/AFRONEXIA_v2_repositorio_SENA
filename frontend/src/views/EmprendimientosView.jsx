@@ -1,33 +1,74 @@
 import React, { useState } from 'react';
+import useCatalogo from '../hooks/useCatalogo';
+import CampoGuiado from '../components/CampoGuiado';
+import { api, formatoCOP } from '../lib/api';
 
-const emprendimientosIniciales = [
-  { id: 1, categoria: 'Artesanía', nombre: 'Artesanías Río Grande', titular: 'Segundo Rentería', desc: 'Cestería en fibras del río, tambores artesanales y accesorios inspirados en la iconografía afro.', barrio: 'Barrio Colombia', social: '@artesaniasriogrande', tel: '573123456789', email: 'artesaniasriogrande@gmail.com', precio: '45000', img: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=600&auto=format&fit=crop&q=80' },
-  { id: 2, categoria: 'Turismo comunitario', nombre: 'Ecoturismo Boga', titular: 'Cooperativa de bogas', desc: 'Recorridos en lancha por la ciénaga con relatos de pesca artesanal y avistamiento de aves.', barrio: 'Ciénaga San Silvestre', social: '@ecoturismoboga', tel: '573109876543', email: 'ecoturismoboga@gmail.com', precio: '80000', img: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&auto=format&fit=crop&q=80' },
-  { id: 3, categoria: 'Música tradicional', nombre: 'Grupo Tambó del Magdalena Medio', titular: 'Jhon Mosquera', desc: 'Agrupación de percusión y canto tradicional afro con talleres formativos de bullerengue.', barrio: 'Comuna 7', social: '@tambomagdalena', tel: '573155557890', email: 'tambomagdalena@gmail.com', precio: '60000', img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop&q=80' },
-  { id: 4, categoria: 'Gastronomía', nombre: 'Sabores de Aminta', titular: 'María Aminta Perea', desc: 'Cocina tradicional afro por encargo: arroz de coco, pusandao, cabeza de gato y dulces típicos.', barrio: 'Comuna 7', social: '@saboresdeaminta', tel: '573001234567', email: 'saboresdeaminta@gmail.com', precio: '28000', img: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80' },
-  { id: 5, categoria: 'Estética ancestral', nombre: 'Trenzas y Raíces', titular: 'Yuranis Palacios', desc: 'Peinados ancestrales, trenzado africano y accesorios étnicos de memoria viva.', barrio: 'Comuna 5', social: '@trenzasyraices', tel: '573187654321', email: 'trenzasyraices@gmail.com', precio: '50000', img: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&auto=format&fit=crop&q=80' }
-];
+const IMG_DEFECTO = 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80';
+const CATEGORIAS = ['Gastronomía', 'Artesanía', 'Estética ancestral', 'Música tradicional', 'Turismo comunitario'];
+const VACIO = { nombre: '', categoria: 'Gastronomía', desc: '', barrio: '', social: '', tel: '', email: '', precio: '', img: '' };
 
 export default function EmprendimientosView({ user, setActiveTab }) {
-  const [lista, setLista] = useState(emprendimientosIniciales);
+  const { datos: lista, recargar, fuente } = useCatalogo('emprendimientos');
   const [showForm, setShowForm] = useState(false);
-  const [nuevo, setNuevo] = useState({ nombre: '', categoria: 'Gastronomía', desc: '', barrio: 'Barrancabermeja', social: '@emprendimiento', tel: '573000000000', email: '', precio: '', img: '' });
+  const [nuevo, setNuevo] = useState(VACIO);
+  const [filtro, setFiltro] = useState('Todas');
+  const [busqueda, setBusqueda] = useState('');
+  const [mejorando, setMejorando] = useState(false);
+  const [guardando, setGuardando] = useState(false);
+  const [aviso, setAviso] = useState(null);
 
   const esEmprendedor = user && (user.rol === 'emprendedor' || user.rol === 'administrador');
+  const set = (k) => (e) => setNuevo({ ...nuevo, [k]: e.target.value });
 
-  const handlePublicar = (e) => {
-    e.preventDefault();
-    if (!nuevo.nombre) return;
-    const nuevoItem = {
-      ...nuevo,
-      id: Date.now(),
-      titular: user.nombre,
-      img: nuevo.img || 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80'
-    };
-    setLista([nuevoItem, ...lista]);
-    setShowForm(false);
-    alert('✅ ¡Tu producto/emprendimiento ha sido publicado exitosamente!');
+  const visibles = lista
+    .filter((x) => filtro === 'Todas' || x.categoria === filtro)
+    .filter((x) => !busqueda || `${x.nombre} ${x.desc} ${x.titular} ${x.barrio}`.toLowerCase().includes(busqueda.toLowerCase()));
+
+  const mejorarConIA = async () => {
+    if (nuevo.desc.trim().length < 5) { setAviso({ tipo: 'error', texto: 'Escribe primero una o dos frases sobre tu producto; NEXIA las mejora.' }); return; }
+    setMejorando(true);
+    setAviso(null);
+    try {
+      const r = await api('/ia/mejorar-descripcion', { method: 'POST', body: { nombre: nuevo.nombre, categoria: nuevo.categoria, descripcion: nuevo.desc, ubicacion: nuevo.barrio } });
+      setNuevo((n) => ({ ...n, desc: r.descripcion }));
+      setAviso({ tipo: 'ok', texto: '✨ NEXIA mejoró tu descripción. Revísala y ajústala si algo no es exacto.' });
+    } catch (e) {
+      setAviso({ tipo: 'error', texto: e.message });
+    } finally {
+      setMejorando(false);
+    }
   };
+
+  const handlePublicar = async (e) => {
+    e.preventDefault();
+    const tel = nuevo.tel.replace(/\D/g, '');
+    if (tel.length < 10) { setAviso({ tipo: 'error', texto: 'Revisa el WhatsApp: escribe 57 y tu número, solo dígitos (ej. 573001234567).' }); return; }
+    setGuardando(true);
+    setAviso(null);
+    try {
+      await api('/catalogo/emprendimientos', { method: 'POST', body: { ...nuevo, tel, precio: Number(nuevo.precio) || null, img: nuevo.img || IMG_DEFECTO } });
+      await recargar();
+      setNuevo(VACIO);
+      setShowForm(false);
+      setAviso({ tipo: 'ok', texto: '✅ ¡Tu producto fue publicado en el catálogo! NEXIA ya puede recomendarlo.' });
+    } catch (err) {
+      setAviso({ tipo: 'error', texto: err.message });
+    } finally {
+      setGuardando(false);
+    }
+  };
+
+  const eliminar = async (item) => {
+    if (!window.confirm(`¿Eliminar "${item.nombre}" del catálogo?`)) return;
+    try {
+      await api(`/catalogo/emprendimientos/${item.id}`, { method: 'DELETE' });
+      await recargar();
+    } catch (err) {
+      setAviso({ tipo: 'error', texto: err.message });
+    }
+  };
+
+  const puedeEditar = (item) => user && (user.rol === 'administrador' || (user.rol === 'emprendedor' && item.usuario_id === user.id));
 
   return (
     <div className="view-container">
@@ -37,97 +78,132 @@ export default function EmprendimientosView({ user, setActiveTab }) {
         <p>El componente económico del ecosistema: perfiles con historia, productos, precios, WhatsApp y contacto por correo electrónico.</p>
       </div>
 
-      {/* ÁREA EXCLUSIVA PARA EMPRENDEDORES */}
       <div className="emprendedor-action-bar">
         {esEmprendedor ? (
           <div className="emp-authenticated-box">
-            <span>👋 Hola <strong>{user.nombre}</strong>. Tienes permisos para publicar y gestionar productos.</span>
-            <button className="btn-emp-new" onClick={() => setShowForm(!showForm)}>
-              {showForm ? '✕ Cerrar formulario' : '+ Publicar mi Producto / Plato'}
-            </button>
+            <span>👋 Hola <strong>{user.nombre}</strong>. Puedes publicar y gestionar tus productos.</span>
+            <div className="emp-botones">
+              <button className="btn-guia-link" onClick={() => setActiveTab('guia-emprendedor')}>📘 Guía paso a paso</button>
+              <button className="btn-emp-new" onClick={() => { setShowForm(!showForm); setAviso(null); }}>
+                {showForm ? '✕ Cerrar formulario' : '+ Publicar mi Producto / Plato'}
+              </button>
+            </div>
           </div>
         ) : (
           <div className="emp-guest-box">
             <span>¿Eres emprendedor/a afrodescendiente de Barrancabermeja?</span>
-            <button className="btn-guest-login" onClick={() => setActiveTab('login')}>
-              Inicia sesión como Emprendedor para subir tus productos
-            </button>
+            <div className="emp-botones">
+              <button className="btn-guia-link" onClick={() => setActiveTab('guia-emprendedor')}>📘 Cómo registrarme (guía)</button>
+              <button className="btn-guest-login" onClick={() => setActiveTab('login')}>Inicia sesión como Emprendedor para subir tus productos</button>
+            </div>
           </div>
         )}
       </div>
 
-      {/* FORMULARIO DE PUBLICACIÓN EXCLUSIVO */}
+      {aviso && <div className={aviso.tipo === 'ok' ? 'alert-success-box' : 'alert-error-box'}>{aviso.texto}</div>}
+
       {showForm && esEmprendedor && (
         <form onSubmit={handlePublicar} className="emp-form-upload">
           <h3>Publicar Nuevo Producto o Experiencia</h3>
+          <p className="form-ayuda-intro">Toca <strong>ⓘ ¿Qué escribo aquí?</strong> junto a cada casilla si tienes dudas. Los campos con * son obligatorios.</p>
           <div className="emp-grid-form">
-            <div>
-              <label>Nombre del Producto / Plato:</label>
-              <input type="text" required placeholder="Ej: Arroz con Camarón Seco" value={nuevo.nombre} onChange={(e) => setNuevo({ ...nuevo, nombre: e.target.value })} />
-            </div>
-            <div>
-              <label>Categoría:</label>
-              <select value={nuevo.categoria} onChange={(e) => setNuevo({ ...nuevo, categoria: e.target.value })}>
-                <option value="Gastronomía">Gastronomía</option>
-                <option value="Artesanía">Artesanía</option>
-                <option value="Estética ancestral">Estética ancestral / Trenzas</option>
-                <option value="Música tradicional">Música tradicional</option>
-                <option value="Turismo comunitario">Turismo comunitario</option>
+            <CampoGuiado paso="publicacion" clave="nombre" etiqueta="Nombre del Producto / Plato">
+              <input type="text" required placeholder="Ej: Arroz de coco con bocachico frito" value={nuevo.nombre} onChange={set('nombre')} maxLength={200} />
+            </CampoGuiado>
+            <CampoGuiado paso="publicacion" clave="categoria" etiqueta="Categoría">
+              <select value={nuevo.categoria} onChange={set('categoria')}>
+                {CATEGORIAS.map((c) => <option key={c} value={c}>{c}</option>)}
               </select>
-            </div>
-            <div>
-              <label>Precio ($ COP):</label>
-              <input type="number" required placeholder="35000" value={nuevo.precio} onChange={(e) => setNuevo({ ...nuevo, precio: e.target.value })} />
-            </div>
-            <div>
-              <label>Correo Electrónico de Contacto:</label>
-              <input type="email" required placeholder="tucontacto@gmail.com" value={nuevo.email} onChange={(e) => setNuevo({ ...nuevo, email: e.target.value })} />
-            </div>
-            <div>
-              <label>Teléfono / WhatsApp:</label>
-              <input type="text" required placeholder="573001234567" value={nuevo.tel} onChange={(e) => setNuevo({ ...nuevo, tel: e.target.value })} />
-            </div>
-            <div>
-              <label>URL de la Foto / Imagen:</label>
-              <input type="url" placeholder="https://ejemplo.com/foto.jpg" value={nuevo.img} onChange={(e) => setNuevo({ ...nuevo, img: e.target.value })} />
-            </div>
-            <div className="full-col">
-              <label>Descripción del Producto:</label>
-              <textarea rows="2" required placeholder="Describe los ingredientes, la historia y preparación..." value={nuevo.desc} onChange={(e) => setNuevo({ ...nuevo, desc: e.target.value })} />
+            </CampoGuiado>
+            <CampoGuiado paso="publicacion" clave="precio" etiqueta="Precio ($ COP)">
+              <input type="number" required min="0" step="500" placeholder="28000" value={nuevo.precio} onChange={set('precio')} />
+            </CampoGuiado>
+            <CampoGuiado paso="publicacion" clave="email" etiqueta="Correo Electrónico de Contacto">
+              <input type="email" required placeholder="tucontacto@gmail.com" value={nuevo.email} onChange={set('email')} />
+            </CampoGuiado>
+            <CampoGuiado paso="publicacion" clave="tel" etiqueta="Teléfono / WhatsApp">
+              <input type="tel" required inputMode="numeric" placeholder="573001234567" value={nuevo.tel} onChange={set('tel')} />
+            </CampoGuiado>
+            <CampoGuiado paso="publicacion" clave="barrio" etiqueta="Barrio o punto de venta">
+              <input type="text" placeholder="Ej: Comuna 7 / Mercado Central" value={nuevo.barrio} onChange={set('barrio')} />
+            </CampoGuiado>
+            <CampoGuiado paso="publicacion" clave="social" etiqueta="Red social">
+              <input type="text" placeholder="@tuemprendimiento" value={nuevo.social} onChange={set('social')} />
+            </CampoGuiado>
+            <CampoGuiado paso="publicacion" clave="img" etiqueta="URL de la Foto / Imagen">
+              <input type="url" placeholder="https://ejemplo.com/foto.jpg" value={nuevo.img} onChange={set('img')} />
+            </CampoGuiado>
+            <CampoGuiado paso="publicacion" clave="desc" etiqueta="Descripción del Producto" className="full-col">
+              <textarea rows="3" required placeholder="Describe los ingredientes, la historia y la preparación…" value={nuevo.desc} onChange={set('desc')} maxLength={800} />
+              <button type="button" className="btn-ai-magic" onClick={mejorarConIA} disabled={mejorando}>
+                ✨ {mejorando ? 'NEXIA está redactando…' : 'Mejorar con IA'}
+              </button>
+            </CampoGuiado>
+          </div>
+
+          <div className="emp-preview">
+            <span className="emp-preview-label">Vista previa de tu tarjeta</span>
+            <div className="card-afro with-img emp-preview-card">
+              <img src={nuevo.img || IMG_DEFECTO} alt="" className="card-top-img" onError={(e) => { e.target.src = IMG_DEFECTO; }} />
+              <div className="card-inner-body">
+                <div className="card-badge-row">
+                  <span className="card-badge">{nuevo.categoria}</span>
+                  {nuevo.precio && <span className="price-badge-green">{formatoCOP(nuevo.precio)} COP</span>}
+                </div>
+                <h3>{nuevo.nombre || 'Nombre de tu producto'}</h3>
+                <div className="titular-text">👤 {user.nombre}</div>
+                <p className="card-desc">{nuevo.desc || 'Aquí aparecerá tu descripción.'}</p>
+              </div>
             </div>
           </div>
-          <button type="submit" className="btn-emp-submit">Guardar y Publicar en el Catálogo</button>
+
+          <button type="submit" className="btn-emp-submit" disabled={guardando}>{guardando ? 'Publicando…' : 'Guardar y Publicar en el Catálogo'}</button>
         </form>
       )}
 
-      {/* REJILLA DE TARJETAS */}
+      <div className="catalogo-toolbar">
+        <div className="pill-group">
+          {['Todas', ...CATEGORIAS].map((c) => (
+            <button key={c} className={filtro === c ? 'filter-pill active' : 'filter-pill'} onClick={() => setFiltro(c)}>{c}</button>
+          ))}
+        </div>
+        <input className="buscador-mini" placeholder="🔍 Buscar emprendimiento…" value={busqueda} onChange={(e) => setBusqueda(e.target.value)} />
+      </div>
+      {fuente === 'local' && <p className="aviso-offline">Mostrando el catálogo guardado (sin conexión con el servidor).</p>}
+
       <div className="cards-grid-afro">
-        {lista.map(item => (
+        {visibles.map((item) => (
           <div key={item.id} className="card-afro with-img">
-            <img src={item.img} alt={item.nombre} className="card-top-img" />
+            <img src={item.img || IMG_DEFECTO} alt={item.nombre} className="card-top-img" loading="lazy" onError={(e) => { e.target.src = IMG_DEFECTO; }} />
             <div className="card-inner-body">
               <div className="card-badge-row">
                 <span className="card-badge">{item.categoria}</span>
-                {item.precio && <span className="price-badge-green">{"$" + Number(item.precio).toLocaleString() + " COP"}</span>}
+                {item.precio ? <span className="price-badge-green">{formatoCOP(item.precio)} COP</span> : null}
               </div>
               <h3>{item.nombre}</h3>
-              <div className="titular-text">👤 {item.titular}</div>
+              {item.titular && <div className="titular-text">👤 {item.titular}</div>}
               <p className="card-desc">{item.desc}</p>
               <div className="card-meta">
-                <div>📍 {item.barrio}</div>
-                <div>📸 {item.social}</div>
+                {item.barrio && <div>📍 {item.barrio}</div>}
+                {item.social && <div>📸 {item.social}</div>}
               </div>
               <div className="contact-actions-dual">
-                <button className="btn-wpp-direct" onClick={() => window.open('https://wa.me/' + String(item.tel).replace(/\D/g, ''), '_blank')}>
-                  💬 WhatsApp
-                </button>
-                <button className="btn-email-direct" onClick={() => window.open('mailto:' + item.email + '?subject=Consulta sobre ' + encodeURIComponent(item.nombre) + ' en AFRONEXIA', '_blank')}>
-                  ✉️ Correo
-                </button>
+                {item.tel && (
+                  <button className="btn-wpp-direct" onClick={() => window.open('https://wa.me/' + String(item.tel).replace(/\D/g, '') + '?text=' + encodeURIComponent(`Hola, vi "${item.nombre}" en AFRONEXIA y quisiera más información.`), '_blank', 'noopener')}>
+                    💬 WhatsApp
+                  </button>
+                )}
+                {item.email && (
+                  <button className="btn-email-direct" onClick={() => window.open('mailto:' + item.email + '?subject=' + encodeURIComponent('Consulta sobre ' + item.nombre + ' en AFRONEXIA'), '_blank')}>
+                    ✉️ Correo
+                  </button>
+                )}
               </div>
+              {puedeEditar(item) && <button className="btn-eliminar-propio" onClick={() => eliminar(item)}>🗑️ Eliminar publicación</button>}
             </div>
           </div>
         ))}
+        {!visibles.length && <p className="aviso-offline">No hay emprendimientos con ese filtro.</p>}
       </div>
     </div>
   );
