@@ -10,6 +10,7 @@ Proyecto formativo del programa **Tecnólogo en Análisis y Desarrollo de Softwa
 | Ficha | 2758307 |
 | Instructores | Hugo Semanate Quiñonez – Alejandro Zabala |
 | Centro de formación | SENA, Centro de Comercio |
+| Repositorio | https://github.com/libardohover/AFRONEXIA_v2_repositorio_SENA |
 
 Incluye 8 módulos: Explorador, Memoria, Agenda, Emprendimientos, Rutas, Experiencias, Asistente IA (NEXIA) y Panel administrativo. Además trae la **Guía del emprendedor**.
 
